@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, Button, View, AppRegistry } from 'react-native';
+import Test from '../SpringClockMobile/components/test.js';
 
 export default class App extends React.Component {
   render() {
@@ -10,13 +11,15 @@ export default class App extends React.Component {
         <Text>Shake your phone to open the developer menu.</Text>
         <Button 
           title="My Button"
-          style={styles.button}>
-        </Button>
+          style={styles.button}
+          color="#841584"
+          onPress={Test.test}
+        />
       </View>
 
     );
   }
-}
+}//
 
 // // My first component
 // const Stuff = () => (
@@ -36,10 +39,16 @@ const styles = StyleSheet.create({
 
   button: {
     width: 30,
+    color: "#841584",
     backgroundColor: 'powderblue',
-    borderWidth: 20,
+    borderWidth: 1,
     borderColor: 'blue',
     borderStyle: 'solid',
     height: 15,
   },
 });
+
+function restTest() {
+  return alert("yo");
+}
+
