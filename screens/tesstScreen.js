@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 
@@ -11,10 +11,12 @@ class ProfileScreen extends React.Component {
   render() {
     const { goBack } = this.props.navigation;
     return (
+      <View>
       <Button
         title="Go back"
         onPress={() => goBack()}
       />
+      </View>
     );
   }
 }

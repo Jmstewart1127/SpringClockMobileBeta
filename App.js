@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import Tabs from './config/router';
 import Test from './components/test.js';
 import Button from './components/button.js';
 
@@ -13,6 +14,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Tabs />
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
@@ -21,14 +23,6 @@ export default class App extends React.Component {
     );
   }
 }
-
-// // My first component
-// const Stuff = () => (
-//   <Text>Mas Text</Text>
-// );
-
-// // Render to device
-// ReactNative.AppRegistry.registerComponent('SpringClockMobile', () => Stuff);
 
 const styles = StyleSheet.create({
   container: {
