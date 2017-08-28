@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Tabs from './config/router';
-import Test from './components/test.js';
-import Button from './components/button.js';
 
-import AppHome from './screens/AppHome';
+import Tabs   from './app/config/router.js';
+import Button from './app/components/button.js';
+
+import AppHome from './app/screens/AppHome';
 
 export default class App extends React.Component {
     static navigationOptions = {
@@ -14,7 +14,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Tabs />
+        <Tabs/>
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>

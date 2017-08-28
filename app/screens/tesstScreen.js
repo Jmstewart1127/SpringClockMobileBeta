@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 
 import Button from '../components/button.js';
 
-class ProfileScreen extends React.Component {
+class tesstScreen extends Component {
   static navigationOptions = ({navigation}) => ({
     title: navigation.state.params.name,
   });
@@ -21,3 +21,4 @@ class ProfileScreen extends React.Component {
   }
 }
 
+export default tesstScreen;

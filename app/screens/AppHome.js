@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Button from '../components/button.js';
 
-class AppHome extends React.Component {
+class AppHome extends Component {
   static navigationOptions = {
     title: 'Welcome',
   };
@@ -22,4 +22,4 @@ class AppHome extends React.Component {
   }
 }
 
-
+export default AppHome;
