@@ -5,11 +5,11 @@ import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import Button from '../components/button.js';
 
 class tesstScreen extends Component {
-  static navigationOptions = ({navigation}) => ({
-    title: navigation.state.params.name,
-  });
+  static navigationOptions = {
+    title: "Hello",
+  };
   render() {
-    const { goBack } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
       <View>
       <Button

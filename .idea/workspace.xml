@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd842d9-9795-452b-b2d1-51257844436f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/config/router.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/config/router.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/components/Nav.js" afterPath="$PROJECT_DIR$/app/components/Nav.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/components/button.js" afterPath="$PROJECT_DIR$/app/components/button.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/components/test.js" afterPath="$PROJECT_DIR$/app/components/test.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/screens/AppHome.js" afterPath="$PROJECT_DIR$/app/screens/AppHome.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/screens/tesstScreen.js" afterPath="$PROJECT_DIR$/app/screens/tesstScreen.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App.js" afterPath="$PROJECT_DIR$/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/router.js" afterPath="$PROJECT_DIR$/app/config/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/screens/tesstScreen.js" afterPath="$PROJECT_DIR$/app/screens/tesstScreen.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +22,8 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="23" column="3" lean-forward="false" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+            <state relative-caret-position="126">
+              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -52,11 +46,11 @@
       <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/config/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
+            <state relative-caret-position="-84">
               <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#117#161#0" expanded="true" />
+                <element signature="e#133#177#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -417,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" column="3" lean-forward="false" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+        <state relative-caret-position="126">
+          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -427,11 +421,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
+        <state relative-caret-position="-84">
           <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#117#161#0" expanded="true" />
+            <element signature="e#133#177#0" expanded="true" />
           </folding>
         </state>
       </provider>

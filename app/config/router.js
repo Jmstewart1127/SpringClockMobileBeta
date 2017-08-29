@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 //import  Icon from 'react-navigation';
 
 import AppHome from '../screens/AppHome.js';
@@ -14,19 +14,44 @@ import tesstScreen from '../screens/tesstScreen.js';
 // 	},
 // });
 
-export const Tabs = TabNavigator({
+export const FeedStack = StackNavigator({
   AppHome: {
     screen: AppHome,
     navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,
+      title: 'Feed',
     },
   },
   tesstScreen: {
     screen: tesstScreen,
     navigationOptions: {
-      tabBarLabel: 'Me',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+      title: 'nugnog',
+    }
+  },
+});
+
+export const Tabs = TabNavigator({
+  AppHome: {
+    screen: FeedStack,
+    navigationOptions: {
+      tabBarLabel: 'Home',
     },
   },
+  tesstScreen: {
+    screen: tesstScreen,
+    navigationOptions: {
+      tabBarLabel: 'Me'
+    },
+  },
+});
+
+export const Root = StackNavigator({
+  Tabs: {
+    screen: Tabs,
+  },
+  Settings: {
+    screen: AppHome,
+  },
+}, {
+  mode: 'modal',
+  headerMode: 'none',
 });
