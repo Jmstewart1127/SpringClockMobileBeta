@@ -24,7 +24,7 @@ export const FeedStack = StackNavigator({
   tesstScreen: {
     screen: tesstScreen,
     navigationOptions: {
-      title: 'nugnog',
+      title: 'ScreenTwo',
     }
   },
 });

@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 const Button = ({ onPress, children }) => {
   const { buttonStyle, textStyle } = styles;
 
   return (
-    <TouchableOpacity onPress={pressDis} style={buttonStyle}>
+    <TouchableOpacity onPress={restTest} style={buttonStyle}>
       <Text style={textStyle}>
         Press
       </Text>
     </TouchableOpacity>
   );
 };
-
+//j
 const styles = {
   textStyle: {
     alignSelf: 'center',
@@ -36,6 +36,10 @@ const styles = {
 
 function pressDis() {
   alert("Button Pressed");
+}
+
+function restTest() {
+  return fetch('https://spring-clock.herokuapp.com/hello/showjobs');
 }
 
 export default Button;

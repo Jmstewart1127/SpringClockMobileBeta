@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd842d9-9795-452b-b2d1-51257844436f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App.js" afterPath="$PROJECT_DIR$/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/router.js" afterPath="$PROJECT_DIR$/app/config/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/screens/tesstScreen.js" afterPath="$PROJECT_DIR$/app/screens/tesstScreen.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/components/Nav.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/components/test.js" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,16 +51,6 @@
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#133#177#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Nav.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/Nav.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -181,7 +170,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ReactNativeReduxCasts" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -269,12 +258,12 @@
       <workItem from="1503439893618" duration="3298000" />
       <workItem from="1503683903629" duration="379000" />
       <workItem from="1503685249356" duration="748000" />
-      <workItem from="1503941261811" duration="1169000" />
+      <workItem from="1503941261811" duration="1180000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5594000" />
+    <option name="totallyTimeSpent" value="5605000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
