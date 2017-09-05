@@ -17,7 +17,7 @@ class AppHome extends Component {
       <View>
       <MyTextInput/>
       <Button
-        onPress={ Rest.clockInTest() }
+        onPress={ Rest.anotherTest() }
         title="Sup"
       />
       </View>
@@ -33,6 +33,6 @@ class AppHome extends Component {
   //   .catch(function (error) {
   //     console.log(error);
   //   });
-  // };
+  // }; //
 
 export default AppHome;
