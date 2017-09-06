@@ -5,15 +5,6 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import AppHome from '../screens/AppHome.js';
 import tesstScreen from '../screens/tesstScreen.js';
 
-// export const Tabs = TabNavigator({
-// 	AppHome: {
-// 		screen: AppHome,
-// 	},
-// 	tesstScreen: {
-// 		screen: tesstScreen,
-// 	},
-// });
-
 export const FeedStack = StackNavigator({
   AppHome: {
     screen: AppHome,
