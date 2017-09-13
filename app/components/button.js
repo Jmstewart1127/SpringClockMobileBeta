@@ -5,8 +5,18 @@ import Rest from './rest.js';
 const Button = ({ onPress, children }) => {
   const { buttonStyle, textStyle } = styles;
 
+  function clockIn(id) {
+   fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
+     .then((responseJson) => {
+       return responseJson;
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+  }
+
   return (
-    <TouchableOpacity style={ buttonStyle }>
+    <TouchableOpacity style={ buttonStyle } onPress={() => clockIn(2)}>
       <Text style={textStyle}>
         Press
       </Text>
@@ -35,12 +45,20 @@ const styles = {
   }
 };
 
+function clockIn(id) {
+ fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
+   .then((response) => response.json())
+   .then((responseJson) => {
+     return responseJson;
+   })
+   .catch((error) => {
+     console.error(error);
+   });
+}
+
 function pressDis() {
   alert("Button Pressed");
 }
 
-function restTest() {
-  return fetch('https://spring-clock.herokuapp.com/hello/showjobs');
-}
 
 export default Button;

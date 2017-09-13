@@ -9,8 +9,11 @@ class EmployeeList extends Component {
     }
   }
 
+
+
   componentWillMount() {
-    fetch('https://spring-clock.herokuapp.com/rest/employees')
+    var id = 2;
+    fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});
@@ -38,7 +41,8 @@ class EmployeeList extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
-          <Text>{"User: " + rowData.user},
+          <Text>
+            {"User: " + rowData.user},
             {"Business ID: " + rowData.bizId},
             {"Week Time: " + rowData.weekTimeInHours},
             {"Pay Rate: " + rowData.payRate},
