@@ -9,8 +9,6 @@ class EmployeeList extends Component {
     }
   }
 
-
-
   componentWillMount() {
     var id = 2;
     fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
