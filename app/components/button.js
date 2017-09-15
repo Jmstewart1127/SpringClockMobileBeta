@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 class Button extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    }
-  }
 
   _clockIn(id) {
    fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
@@ -24,8 +18,10 @@ class Button extends Component {
   }
 
   render() {
+    const { id } = this.props;
     return (
-      <TouchableOpacity style={ styles.buttonStyle } onPress={() => this._clockIn(2)}>
+      <TouchableOpacity style={ styles.buttonStyle }
+         onPress={() => this._clockIn(this.props.id)}>
         <Text style={styles.textStyle}>
           Press
         </Text>

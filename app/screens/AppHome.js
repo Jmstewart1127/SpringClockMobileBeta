@@ -8,29 +8,26 @@ import MyTextInput        from '../components/textInput.js';
 import EmployeeList       from '../components/EmployeeList.js';
 
 class AppHome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: "Enter ID" };
+  }
   static navigationOptions = {
     title: 'Welcome',
   };
 
-
-   clockIn(id) {
-    fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        return responseJson;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
   render() {
+    let userId = this.state.text;
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <MyTextInput/>
+        <MyTextInput
+          onChangeText={(text) => this.setState({text:text})}
+        />
         <EmployeeList/>
-        <Button/>
+        <Button
+          id={ userId }
+        />
       </View>
     );
   }

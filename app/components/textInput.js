@@ -2,7 +2,6 @@ import React, { Component, state } from 'react';
 import { View, TextInput, AppRegistry } from 'react-native';
 
 class MyTextInput extends Component {
-
   constructor(props) {
     super(props);
     this.state = { text: "Enter ID" };
@@ -15,9 +14,6 @@ class MyTextInput extends Component {
         {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
         editable = {true}
         maxLength = {40}
-        ref= {(el) => { this.username = el; }}
-        onChangeText={(username) => this.setState({username})}
-        value={this.state.username}
       />
     );
   }
