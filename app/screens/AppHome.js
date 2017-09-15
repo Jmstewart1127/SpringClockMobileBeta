@@ -6,6 +6,7 @@ import Rest               from '../components/rest.js'
 import Button             from '../components/button.js';
 import MyTextInput        from '../components/textInput.js';
 import EmployeeList       from '../components/EmployeeList.js';
+import Clock              from '../components/Clock.js'
 
 class AppHome extends Component {
   constructor(props) {
@@ -17,19 +18,37 @@ class AppHome extends Component {
   };
 
   render() {
-    let userId = this.state.text;
     const { navigate } = this.props.navigation;
     return (
-      <View>
-        <MyTextInput
-          onChangeText={(text) => this.setState({text:text})}
-        />
-        <EmployeeList/>
-        <Button
-          id={ userId }
-        />
+      <View style={ styles.outerScreen }>
+        <Text style={ styles.labelStyle }>Enter Employee ID</Text>
+          <Clock></Clock>
+          <Text style={ styles.componentPadding }></Text>
+          <EmployeeList/>
+          <Text style={ styles.componentPadding }></Text>
       </View>
     );
+  }
+}
+
+const styles = {
+  screenStyle: {
+    padding: 10,
+    flexDirection: 'row',
+    width: 1000,
+  },
+
+  componentPadding: {
+    padding: 5,
+  },
+
+  labelStyle: {
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+
+  outerScreen: {
+
   }
 }
 

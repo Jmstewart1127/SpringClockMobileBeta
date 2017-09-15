@@ -39,19 +39,44 @@ class EmployeeList extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
-          <Text>
-            {"User: " + rowData.user},
-            {"Business ID: " + rowData.bizId},
-            {"Week Time: " + rowData.weekTimeInHours},
-            {"Pay Rate: " + rowData.payRate},
-            {"Period Pay: " + rowData.totalPay},
-            {"Clock In Status: " + rowData.clocked}
+          <Text style={ styles.listStyle }>
+            <Text style={ styles.userStyle } >
+              {rowData.user + " "}
+            </Text>
+
+            <Text style={ styles.listStyle } >
+              {"Business ID: " + rowData.bizId},
+              {"Week Time: " + rowData.weekTimeInHours},
+              {"Pay Rate: " + rowData.payRate},
+              {"Period Pay: " + rowData.totalPay},
+              {"Clock In Status: " + rowData.clocked}
+            </Text>
           </Text>
         }
       />
       </View>
     );
   }
+}
+
+const styles = {
+  listStyle: {
+    textAlign: 'left',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'blue',
+    padding: 10,
+  },
+
+  userStyle: {
+    textAlign: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'blue',
+    fontWeight: 'bold',
+    fontSize: 18,
+  }
+
 }
 
 export default EmployeeList;

@@ -26,7 +26,8 @@ const styles = {
 	borderRadius: 10,
 	height: 40,
 	justifyContent: 'center',
-	paddingLeft: 4
+	paddingLeft: 4,
+  width: 210,
   }
 }
 

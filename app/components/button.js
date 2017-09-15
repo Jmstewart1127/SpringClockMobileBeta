@@ -23,7 +23,7 @@ class Button extends Component {
       <TouchableOpacity style={ styles.buttonStyle }
          onPress={() => this._clockIn(this.props.id)}>
         <Text style={styles.textStyle}>
-          Press
+          Start/End Shift
         </Text>
       </TouchableOpacity>
     );
