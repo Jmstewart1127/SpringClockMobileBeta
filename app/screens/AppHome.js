@@ -8,6 +8,7 @@ import MyTextInput        from '../components/textInput.js';
 import EmployeeList       from '../components/EmployeeList.js';
 import Clock              from '../components/Clock.js'
 import Location           from '../components/Location.js'
+import AddressLocation    from '../components/AddressLocation.js'
 
 class AppHome extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class AppHome extends Component {
           <EmployeeList/>
           <Text style={ styles.componentPadding }></Text>
           <Location></Location>
+          <AddressLocation></AddressLocation>
       </View>
     );
   }
