@@ -17,7 +17,7 @@ class AddressLocation extends Component {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
+          dataSource: ds.cloneWithRows(responseJson.results["0"].geometry.location),
         });
       })
       .catch((error) => {
@@ -37,18 +37,12 @@ class AddressLocation extends Component {
     return (
       <View>
       <ListView
-        dataSource={this.state.dataSource}
+        dataSource={ this.state.dataSource }
         renderRow={(rowData) =>
-          <Text style={ styles.listStyle }>
-            <Text style={ styles.userStyle } >
-              {rowData.user + " "}
-            </Text>
-
             <Text style={ styles.listStyle } >
-              {"address lat: " + rowData.results.formatted_address.location.lat},
-              {"address lng: " + rowData.results.formatted_address.location.lng},
+              { "address lat: " + rowData.lat },
+              {"address lng: " + rowData.lng },
             </Text>
-          </Text>
         }
       />
       </View>
