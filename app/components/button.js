@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
+
 class Button extends Component {
 
   _clockIn(id) {
@@ -19,15 +20,16 @@ class Button extends Component {
 
   render() {
     const { id } = this.props;
-    return (
-      <TouchableOpacity style={ styles.buttonStyle }
-         onPress={() => this._clockIn(this.props.id)}>
-        <Text style={styles.textStyle}>
-          Start/End Shift
-        </Text>
-      </TouchableOpacity>
-    );
-  }
+      return (
+        <TouchableOpacity style={ styles.buttonStyle }
+           onPress={() => this._clockIn(this.props.id)}>
+          <Text style={styles.textStyle}>
+            Start/End Shift
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+  
 }
   const styles = {
     textStyle: {
@@ -46,7 +48,7 @@ class Button extends Component {
       borderColor: 'blue',
       borderStyle: 'solid',
       borderRadius: 10,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
     }
   }
 

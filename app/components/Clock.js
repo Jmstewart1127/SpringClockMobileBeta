@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry } from 'react-native';
 
-import Button             from '../components/button.js';
-import MyTextInput        from '../components/textInput.js';
+import Button                from '../components/button.js';
+import MyTextInput           from '../components/textInput.js';
+import Location              from '../components/Location.js';
+import AddressLocation       from '../components/AddressLocation.js';
+
+
 
 
 class Clock extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "Enter ID" };
+    this.state = { text: "Enter ID", };
   }
 
   render() {
@@ -17,11 +21,11 @@ class Clock extends Component {
       <View style={ styles.screenStyle }>
         <MyTextInput
           onChangeText={(text) => this.setState({text:text})}
-        />
+        ></MyTextInput>
         <Text style={ styles.componentPadding }></Text>
         <Button
           id={ userId }
-        />
+        ></Button>
       </View>
     );
   }
