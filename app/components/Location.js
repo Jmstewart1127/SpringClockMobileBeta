@@ -8,6 +8,8 @@ class Location extends Component {
     this.state = {
       latitude: null,
       longitude: null,
+      addressLat: null,
+      addressLng: null,
       error: null,
     };
   }
@@ -20,12 +22,19 @@ class Location extends Component {
     return this.state.longitude;
   }
 
-  _locationMatch(userLat, userLng, addressLat, addressLng) {
+  _locationMatch(addressLat, addressLng, userLat, userLng, id) {
     let isThere = false;
-    if (this._lngMatch(userLng, addressLng) == true
-        && this._latMatch(userLat, addressLat) == true) {
+
+    console.log("ul: " + userLat);
+    console.log("uLng: " + userLng);
+    console.log("addLt: " + addressLat);
+    console.log("addLng: " + addressLng);
+    console.log(id);
+    if (this._lngMatch(userLng, addressLng) === true
+        && this._latMatch(userLat, addressLat) === true) {
           isThere == true;
-          return isThere;
+          this._clockIn(id);
+          console.log("fire");
         } else {
           return isThere;
         }
@@ -37,7 +46,7 @@ class Location extends Component {
     if (userLng + 0.0005 > addressLng && userLng - 0.0005 < addressLng) {
       this.match = true;
       console.log("lng true");
-      return match;
+      return true;
     } else {
       console.log("false");
     }
@@ -49,24 +58,30 @@ class Location extends Component {
     if (userLat + 0.0005 > addressLat && userLat - 0.0005 < addressLat) {
       this.match = true;
       console.log("lat true");
-      return match;
+      return true;
     } else {
       console.log("false");
     }
   }
 
+  _clockIn(id) {
+   fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
+     .then((responseJson) => {
+       return responseJson;
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+  }
+
+
   componentWillMount() {
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=2716+NE+Lyndon+Ct,+Lees+Summit,+MO&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=1631+SE+Boone+Tr,+Lees+Summit,+MO&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
       .then((response) => response.json())
       .then((responseJson) => {
-
-        let data = responseJson.results["0"].geometry.location.lat;
-        let data1 = responseJson.results["0"].geometry.location.lng;
-        let test = 38.917033;
-        let test2 = -94.31519274;
-        console.log(data1);
-        console.log(data);
         this.setState({
+          addressLat: responseJson.results["0"].geometry.location.lat,
+          addressLng: responseJson.results["0"].geometry.location.lng,
           isLoading: false,
         });
       })
@@ -90,10 +105,16 @@ class Location extends Component {
   }
 
   render() {
+    const { id } = this.props;
     return (
-      this._locationMatch(this.data, this.data1, this.state.longitude, this.state.latitude),
       <TouchableOpacity style={ styles.buttonStyle }
-         onPress={() => this._clockIn(this.props.id)}>
+         onPress={() => this._locationMatch(
+           this.state.addressLat,
+           this.state.addressLng,
+           this.state.latitude,
+           this.state.longitude,
+           this.props.id
+         )}>
         <Text style={styles.textStyle}>
           Start/End Shift
         </Text>
