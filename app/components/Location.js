@@ -33,6 +33,7 @@ class Location extends Component {
     if (this._lngMatch(userLng, addressLng) === true
         && this._latMatch(userLat, addressLat) === true) {
           isThere == true;
+          this._getAddresses(id);
           this._clockIn(id);
           console.log("fire");
         } else {
@@ -74,9 +75,21 @@ class Location extends Component {
      });
   }
 
+  _getAddresses(id) {
+   fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + id)
+   .then((response) => response.json())
+   .then((responseJson) => {
+     var addresses = [];
+     console.log('addresses: ' + responseJson);
+     for (var i=0; i<responseJson.length; i++) {
+       addresses.push(responseJson[i]);
+       console.log(i + " hi: " + addresses[i].split(" "));
+     }
+    });
+   }
 
   componentWillMount() {
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=1631+SE+Boone+Tr,+Lees+Summit,+MO&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=2716,NE,Lyndon,Cr,Lees,Summit,MO&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
