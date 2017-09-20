@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import Rest               from '../components/rest.js'

@@ -14,10 +14,6 @@ class Button extends Component {
      });
   }
 
-  _pressDis() {
-    alert("Button Pressed");
-  }
-
   render() {
     const { id } = this.props;
       return (
@@ -29,7 +25,7 @@ class Button extends Component {
         </TouchableOpacity>
       );
     }
-  
+
 }
   const styles = {
     textStyle: {

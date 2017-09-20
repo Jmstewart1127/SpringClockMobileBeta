@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 
 class Location extends Component {
   constructor(props) {
@@ -75,8 +75,8 @@ class Location extends Component {
      });
   }
 
-  _getAddresses(id) {
-   fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + id)
+  _getAddresses(bizId) {
+   fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())
    .then((responseJson) => {
      var addresses = [];
