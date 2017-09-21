@@ -37,7 +37,7 @@ class Location extends Component {
           this._clockIn(id);
           console.log("fire");
         } else {
-          return isThere;
+          this._clockOut(id);
         }
   }
 
@@ -66,7 +66,17 @@ class Location extends Component {
   }
 
   _clockIn(id) {
-   fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
+   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id)
+     .then((responseJson) => {
+       return responseJson;
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+  }
+
+  _clockOut(id) {
+   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
      .then((responseJson) => {
        return responseJson;
      })
@@ -81,26 +91,34 @@ class Location extends Component {
    .then((responseJson) => {
      var addresses = [];
      console.log('addresses: ' + responseJson);
-     for (var i=0; i<responseJson.length; i++) {
+
+     for (var i=0; i<responseJson; i++) {
        addresses.push(responseJson[i]);
-       console.log(i + " hi: " + addresses[i].split(" "));
+       fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           this.setState({
+             addressLat: responseJson.results["0"].geometry.location.lat,
+             addressLng: responseJson.results["0"].geometry.location.lng,
+             isLoading: false,
+           });
+         })
+         .catch((error) => {
+           console.error(error);
+         });
      }
     });
    }
 
   componentWillMount() {
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=2716,NE,Lyndon,Cr,Lees,Summit,MO&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          addressLat: responseJson.results["0"].geometry.location.lat,
-          addressLng: responseJson.results["0"].geometry.location.lng,
-          isLoading: false,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this._getAddresses(2);
+    this._locationMatch(
+      this.state.addressLat,
+      this.state.addressLng,
+      this.state.latitude,
+      this.state.longitude,
+      2
+    );
   }
 
   componentDidMount() {
@@ -126,7 +144,7 @@ class Location extends Component {
            this.state.addressLng,
            this.state.latitude,
            this.state.longitude,
-           this.props.id
+           2
          )}>
         <Text style={styles.textStyle}>
           Start/End Shift

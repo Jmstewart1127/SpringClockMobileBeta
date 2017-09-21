@@ -28,7 +28,6 @@ class AppHome extends Component {
           <Text style={ styles.componentPadding }></Text>
           <EmployeeList/>
           <Text style={ styles.componentPadding }></Text>
-          <Location></Location>
           <Text style={ styles.componentPadding }></Text>
       </View>
     );
