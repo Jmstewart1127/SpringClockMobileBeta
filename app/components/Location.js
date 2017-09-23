@@ -23,17 +23,14 @@ class Location extends Component {
   }
 
   _locationMatch(addressLat, addressLng, userLat, userLng, id) {
-    let isThere = false;
-
     console.log("ul: " + userLat);
     console.log("uLng: " + userLng);
     console.log("addLt: " + addressLat);
     console.log("addLng: " + addressLng);
     console.log(id);
-    if (this._lngMatch(userLng, addressLng) === true
-        && this._latMatch(userLat, addressLat) === true) {
-          isThere == true;
-          this._getAddresses(id);
+
+    if (this._lngMatch(userLng, addressLng) === true &&
+        this._latMatch(userLat, addressLat) === true) {
           this._clockIn(id);
           console.log("fire");
         } else {
@@ -42,26 +39,22 @@ class Location extends Component {
   }
 
   _lngMatch(userLng, addressLng) {
-    let match = false;
-
-    if (userLng + 0.0005 > addressLng && userLng - 0.0005 < addressLng) {
-      this.match = true;
+    if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
       console.log("lng true");
       return true;
     } else {
       console.log("false");
+      return false
     }
   }
 
   _latMatch(userLat, addressLat) {
-    let match = false;
-
-    if (userLat + 0.0005 > addressLat && userLat - 0.0005 < addressLat) {
-      this.match = true;
+    if (userLat + 0.005 > addressLat && userLat - 0.005 < addressLat) {
       console.log("lat true");
       return true;
     } else {
       console.log("false");
+      return false;
     }
   }
 
@@ -85,6 +78,13 @@ class Location extends Component {
      });
   }
 
+  _loopThis(addresses) {
+    for (var i=0; i<addresses.length; i++) {
+      let string = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8';
+      return string;
+    }
+  }
+
   _getAddresses(bizId) {
    fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())
@@ -92,8 +92,9 @@ class Location extends Component {
      var addresses = [];
      console.log('addresses: ' + responseJson);
 
-     for (var i=0; i<responseJson; i++) {
+     for (var i=0; i<responseJson.length; i++) {
        addresses.push(responseJson[i]);
+       for (var j=0; j<addresses.length; j++) {
        fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
          .then((response) => response.json())
          .then((responseJson) => {
@@ -102,26 +103,21 @@ class Location extends Component {
              addressLng: responseJson.results["0"].geometry.location.lng,
              isLoading: false,
            });
+           console.log("lat: " + this.state.addressLat);
+           console.log("lng: " + this.state.addressLng);
          })
          .catch((error) => {
            console.error(error);
          });
+       }
      }
-    });
-   }
-
-  componentWillMount() {
-    this._getAddresses(2);
-    this._locationMatch(
-      this.state.addressLat,
-      this.state.addressLng,
-      this.state.latitude,
-      this.state.longitude,
-      2
-    );
+     for (var i=0; i<addresses.length; i++) {
+       console.log(addresses[i]);
+     }
+   });
   }
 
-  componentDidMount() {
+  _getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -129,11 +125,35 @@ class Location extends Component {
           longitude: position.coords.longitude,
           error: null,
         });
+        console.log(this.state.latitude);
+        console.log(this.state.longitude);
+        this._getAddresses(2);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   }
+
+  _wait(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async _waitForIt() {
+    await this._wait(1500);
+    return     this._locationMatch(
+          this.state.addressLat,
+          this.state.addressLng,
+          this.state.latitude,
+          this.state.longitude,
+          2
+        );
+  }
+
+   componentWillMount() {
+    this._getCurrentLocation();
+    this._waitForIt();
+  }
+
 
   render() {
     const { id } = this.props;
