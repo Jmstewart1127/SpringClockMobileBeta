@@ -95,7 +95,7 @@ class Location extends Component {
      for (var i=0; i<responseJson.length; i++) {
        addresses.push(responseJson[i]);
        for (var j=0; j<addresses.length; j++) {
-       fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+       fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[j].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
          .then((response) => response.json())
          .then((responseJson) => {
            this.setState({
@@ -139,19 +139,19 @@ class Location extends Component {
   }
 
   async _waitForIt() {
-    await this._wait(1500);
-    return     this._locationMatch(
-          this.state.addressLat,
-          this.state.addressLng,
-          this.state.latitude,
-          this.state.longitude,
-          2
-        );
+    await this._wait(1000);
+    return this._locationMatch(
+            this.state.addressLat,
+            this.state.addressLng,
+            this.state.latitude,
+            this.state.longitude,
+            2
+          );
   }
 
    componentWillMount() {
-    this._getCurrentLocation();
-    this._waitForIt();
+     this.timer = setInterval(()=> this._getCurrentLocation(), 1000);
+     this.timer = setInterval(()=> this._waitForIt(), 2000);
   }
 
 
