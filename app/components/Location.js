@@ -6,6 +6,7 @@ class Location extends Component {
     super(props);
 
     this.state = {
+      userId: null,
       latitude: null,
       longitude: null,
       addressLat: null,
@@ -58,8 +59,8 @@ class Location extends Component {
     }
   }
 
-  _clockIn(id) {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id)
+  _clockIn() {
+   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + this._getUserId())
      .then((responseJson) => {
        return responseJson;
      })
@@ -68,8 +69,8 @@ class Location extends Component {
      });
   }
 
-  _clockOut(id) {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
+  _clockOut() {
+   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + this._getUserId())
      .then((responseJson) => {
        return responseJson;
      })
@@ -78,13 +79,31 @@ class Location extends Component {
      });
   }
 
+  async _addUserId(userId) {
+    const id = [ this.state.userId ];
 
+    await AsyncStorage.setItem('id',
+    JSON.stringify(id));
+  }
 
-  _loopThis(addresses) {
-    for (var i=0; i<addresses.length; i++) {
-      let string = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8';
-      return string;
-    }
+  async _getUserId() {
+    let response = await AsyncStorage.getItem('id');
+    return await JSON.parse(response) || [];
+  }
+
+  async _addTask() {
+    const listOfTasks = [ this.state.addressLat, this.state.addressLng ];
+
+    await AsyncStorage.setItem('listOfTasks',
+    JSON.stringify(listOfTasks));
+  }
+
+  async _updateList() {
+    let response = await AsyncStorage.getItem('listOfTasks');
+    let listOfTasks = await JSON.parse(response) || [];
+
+    console.log('List' + listOfTasks);
+    console.log('id' + this._getUserId());
   }
 
   _getAddresses(bizId) {
@@ -105,7 +124,7 @@ class Location extends Component {
              addressLng: responseJson.results["0"].geometry.location.lng,
              isLoading: false,
            });
-
+           this._addTask();
            console.log("lat: " + this.state.addressLat);
            console.log("lng: " + this.state.addressLng);
          })
@@ -116,6 +135,7 @@ class Location extends Component {
      }
      for (var i=0; i<addresses.length; i++) {
        console.log(addresses[i]);
+       this._updateList();
      }
    });
   }
@@ -162,13 +182,10 @@ class Location extends Component {
     const { id } = this.props;
     return (
       <TouchableOpacity style={ styles.buttonStyle }
-         onPress={() => this._locationMatch(
-           this.state.addressLat,
-           this.state.addressLng,
-           this.state.latitude,
-           this.state.longitude,
-           2,
-         )}>
+         onPress={() => this.setState({
+           userId: this.props.id,
+         })
+         }>
         <Text style={styles.textStyle}>
           Start/End Shift
         </Text>
