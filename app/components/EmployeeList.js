@@ -1,5 +1,5 @@
 import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView, Text, View } from 'react-native';
+import { ActivityIndicator, ListView, Text, View, ScrollView } from 'react-native';
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -64,7 +64,6 @@ const styles = {
     textAlign: 'left',
     borderRadius: 0,
     borderWidth: 1,
-    borderColor: 'transparent',
     backgroundColor: '#F3F1F1',
     padding: 10,
   },

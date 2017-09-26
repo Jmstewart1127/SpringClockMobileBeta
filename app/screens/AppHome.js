@@ -26,7 +26,7 @@ class AppHome extends Component {
         <Text style={ styles.labelStyle }>Enter Employee ID</Text>
           <Clock></Clock>
           <Text style={ styles.componentPadding }></Text>
-          <EmployeeList/>
+          <EmployeeList></EmployeeList>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
       </View>
