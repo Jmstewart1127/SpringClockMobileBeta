@@ -62,9 +62,10 @@ class EmployeeList extends Component {
 const styles = {
   listStyle: {
     textAlign: 'left',
-    borderRadius: 10,
+    borderRadius: 0,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: 'transparent',
+    backgroundColor: '#F3F1F1',
     padding: 10,
   },
 

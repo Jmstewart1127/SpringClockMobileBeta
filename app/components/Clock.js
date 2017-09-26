@@ -22,7 +22,9 @@ class Clock extends Component {
         <MyTextInput
           onChangeText={(text) => this.setState({text:text})}
         ></MyTextInput>
-        <Text style={ styles.componentPadding }></Text>
+        <Text
+          style={ styles.componentPadding }
+        ></Text>
         <Location
           id={ userId }
         ></Location>

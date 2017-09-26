@@ -78,6 +78,8 @@ class Location extends Component {
      });
   }
 
+
+
   _loopThis(addresses) {
     for (var i=0; i<addresses.length; i++) {
       let string = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8';
@@ -103,6 +105,7 @@ class Location extends Component {
              addressLng: responseJson.results["0"].geometry.location.lng,
              isLoading: false,
            });
+
            console.log("lat: " + this.state.addressLat);
            console.log("lng: " + this.state.addressLng);
          })
@@ -164,7 +167,7 @@ class Location extends Component {
            this.state.addressLng,
            this.state.latitude,
            this.state.longitude,
-           2
+           2,
          )}>
         <Text style={styles.textStyle}>
           Start/End Shift

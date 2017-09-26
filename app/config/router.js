@@ -3,7 +3,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 //import  Icon from 'react-navigation';
 
 import AppHome from '../screens/AppHome.js';
-import tesstScreen from '../screens/tesstScreen.js';
+import Home from '../screens/Home.js';
 
 export const FeedStack = StackNavigator({
   AppHome: {
@@ -12,10 +12,10 @@ export const FeedStack = StackNavigator({
       title: 'Feed',
     },
   },
-  tesstScreen: {
-    screen: tesstScreen,
+  Home: {
+    screen: Home,
     navigationOptions: {
-      title: 'ScreenTwo',
+      title: 'Home',
     }
   },
 });
@@ -28,9 +28,9 @@ export const Tabs = TabNavigator({
     },
   },
   tesstScreen: {
-    screen: tesstScreen,
+    screen: Home,
     navigationOptions: {
-      tabBarLabel: 'Me'
+      tabBarLabel: 'My Status'
     },
   },
 });

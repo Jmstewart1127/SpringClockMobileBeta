@@ -14,12 +14,12 @@ class Storage extends Component {
   }
 
   async _addTask () {
-  const listOfTasks = [...this.state.listOfTasks, this.state.text];
+  const listOfTasks = [ this.state.listOfTasks, this.state.text ];
 
   await AsyncStorage.setItem('listOfTasks',
   JSON.stringify(listOfTasks));
 
-  this._updateList(); 
+  this._updateList();
   }
 
   async _updateList () {
