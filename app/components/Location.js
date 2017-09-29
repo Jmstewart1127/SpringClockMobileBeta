@@ -116,21 +116,21 @@ class Location extends Component {
      for (var i=0; i<responseJson.length; i++) {
        addresses.push(responseJson[i]);
        for (var j=0; j<addresses.length; j++) {
-       fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[j].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
-         .then((response) => response.json())
-         .then((responseJson) => {
-           this.setState({
-             addressLat: responseJson.results["0"].geometry.location.lat,
-             addressLng: responseJson.results["0"].geometry.location.lng,
-             isLoading: false,
+         fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[j].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+           .then((response) => response.json())
+           .then((responseJson) => {
+             this.setState({
+               addressLat: responseJson.results["0"].geometry.location.lat,
+               addressLng: responseJson.results["0"].geometry.location.lng,
+               isLoading: false,
+             });
+             this._addTask();
+             console.log("lat: " + this.state.addressLat);
+             console.log("lng: " + this.state.addressLng);
+           })
+           .catch((error) => {
+             console.error(error);
            });
-           this._addTask();
-           console.log("lat: " + this.state.addressLat);
-           console.log("lng: " + this.state.addressLng);
-         })
-         .catch((error) => {
-           console.error(error);
-         });
        }
      }
      for (var i=0; i<addresses.length; i++) {
