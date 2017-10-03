@@ -6,7 +6,6 @@ class Location extends Component {
     super(props);
 
     this.state = {
-      userId: null,
       latitude: null,
       longitude: null,
       addressLat: null,
@@ -60,7 +59,7 @@ class Location extends Component {
   }
 
   _clockIn() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + this._getUserId())
+   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + 2)
      .then((responseJson) => {
        return responseJson;
      })
@@ -70,7 +69,7 @@ class Location extends Component {
   }
 
   _clockOut() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + this._getUserId())
+   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + 2)
      .then((responseJson) => {
        return responseJson;
      })
@@ -79,34 +78,11 @@ class Location extends Component {
      });
   }
 
-  async _addUserId(userId) {
-    const id = [ this.state.userId ];
-
-    await AsyncStorage.setItem('id',
-    JSON.stringify(id));
-  }
-
-  async _getUserId() {
-    let response = await AsyncStorage.getItem('id');
-    return await JSON.parse(response) || [];
-  }
-
-  async _addTask() {
-    const listOfTasks = [ this.state.addressLat, this.state.addressLng ];
-
-    await AsyncStorage.setItem('listOfTasks',
-    JSON.stringify(listOfTasks));
-  }
-
-  async _updateList() {
-    let response = await AsyncStorage.getItem('listOfTasks');
-    let listOfTasks = await JSON.parse(response) || [];
-
-    console.log('List' + listOfTasks);
-    console.log('id' + this._getUserId());
-  }
-
   _getAddresses(bizId) {
+    var lat = [];
+    var lng = [];
+    let latTrue = false;
+    let lngTrue = false;
    fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())
    .then((responseJson) => {
@@ -124,19 +100,48 @@ class Location extends Component {
                addressLng: responseJson.results["0"].geometry.location.lng,
                isLoading: false,
              });
-             this._addTask();
-             console.log("lat: " + this.state.addressLat);
-             console.log("lng: " + this.state.addressLng);
+             lat.push(this.state.addressLat);
+             lng.push(this.state.addressLng);
+             if (this._lngMatch(this.state.userLng, this.state.addressLng) === true &&
+                 this._latMatch(this.state.userLat, this.state.addressLat) === true) {
+                   this._clockIn(2);
+                   console.log("fire");
+                 } else {
+                   this._clockOut(2);
+                 }
            })
            .catch((error) => {
              console.error(error);
            });
        }
+       /*
+       for (var k=0; k<lat.length; k++) {
+         if (this._latMatch(this.state.userLat, lat[k]) === true) {
+           this.latTrue = true;
+         }
+       }
+
+       for (var l=0; l<lng.length; l++) {
+         if (this._lngMatch(this.state.userLat, lng[l]) === true) {
+           this.lngTrue = true;
+         }
+       }
+
+       if (this.latTrue === true && this.lngTrue === true) {
+         this._clockIn(2);
+       }
      }
+
      for (var i=0; i<addresses.length; i++) {
        console.log(addresses[i]);
-       this._updateList();
      }
+     for (var j=0; j<lat.length; j++) {
+       console.log("lat: " + lat[j]);
+     }
+     for (var k=0; k<lng.length; k++) {
+       console.log("lng: " + lng[k]);
+     } */
+
    });
   }
 
@@ -174,22 +179,14 @@ class Location extends Component {
 
    componentWillMount() {
      this.timer = setInterval(()=> this._getCurrentLocation(), 1000);
-     this.timer = setInterval(()=> this._waitForIt(), 2000);
   }
 
 
   render() {
-    const { id } = this.props;
     return (
-      <TouchableOpacity style={ styles.buttonStyle }
-         onPress={() => this.setState({
-           userId: this.props.id,
-         })
-         }>
         <Text style={styles.textStyle}>
           Start/End Shift
         </Text>
-      </TouchableOpacity>
     );
   }
 }

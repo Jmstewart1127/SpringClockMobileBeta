@@ -26,7 +26,6 @@ class Clock extends Component {
           style={ styles.componentPadding }
         ></Text>
         <Location
-          id={ userId }
         ></Location>
       </View>
     );
