@@ -14,30 +14,6 @@ class Location extends Component {
     };
   }
 
-  _getLatitude() {
-    return this.state.latitude;
-  }
-
-  _getLongitude() {
-    return this.state.longitude;
-  }
-
-  _locationMatch(addressLat, addressLng, userLat, userLng, id) {
-    console.log("ul: " + userLat);
-    console.log("uLng: " + userLng);
-    console.log("addLt: " + addressLat);
-    console.log("addLng: " + addressLng);
-    console.log(id);
-
-    if (this._lngMatch(userLng, addressLng) === true &&
-        this._latMatch(userLat, addressLat) === true) {
-          this._clockIn(id);
-          console.log("fire");
-        } else {
-          this._clockOut(id);
-        }
-  }
-
   _lngMatch(userLng, addressLng) {
     if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
       console.log("lng true");
@@ -103,6 +79,8 @@ class Location extends Component {
              });
              lat.push(this.state.addressLat);
              lng.push(this.state.addressLng);
+             console.log("abc: " + this.state.addressLat);
+             console.log("def: " + this.state.addressLng);
              if (this._lngMatch(this.state.longitude, this.state.addressLng) === true &&
                  this._latMatch(this.state.latitude, this.state.addressLat) === true) {
                    this.latTrue = true;
@@ -139,25 +117,9 @@ class Location extends Component {
     );
   }
 
-  _wait(ms) {
-    return new Promise(r => setTimeout(r, ms));
-  }
-
-  async _waitForIt() {
-    await this._wait(1000);
-    return this._locationMatch(
-            this.state.addressLat,
-            this.state.addressLng,
-            this.state.latitude,
-            this.state.longitude,
-            2
-          );
-  }
-
    componentWillMount() {
      this.timer = setInterval(()=> this._getCurrentLocation(), 1000);
   }
-
 
   render() {
     return (
