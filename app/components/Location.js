@@ -56,10 +56,11 @@ class Location extends Component {
   }
 
   _getAddresses(bizId) {
-    var lat = [];
-    var lng = [];
     let latTrue = false;
     let lngTrue = false;
+    var latitude = [];
+    var longitude = [];
+
    fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())
    .then((responseJson) => {
@@ -75,27 +76,50 @@ class Location extends Component {
              this.setState({
                addressLat: responseJson.results["0"].geometry.location.lat,
                addressLng: responseJson.results["0"].geometry.location.lng,
-               isLoading: false,
              });
-             lat.push(this.state.addressLat);
-             lng.push(this.state.addressLng);
              console.log("abc: " + this.state.addressLat);
              console.log("def: " + this.state.addressLng);
-             if (this._lngMatch(this.state.longitude, this.state.addressLng) === true &&
-                 this._latMatch(this.state.latitude, this.state.addressLat) === true) {
-                   this.latTrue = true;
-                   this.lngTrue = true;
-                   this._clockIn(2);
-                   console.log("fire");
+             latitude.push(responseJson.results["0"].geometry.location.lat);
+             longitude.push(responseJson.results["0"].geometry.location.lng);
+
+             for (var k=0; k<latitude.length; k++) {
+               if (this._latMatch(this.state.latitude, latitude[k])) {
+                 latTrue = true;
+               }
              }
-             if (this.latTrue === false && this.lngTrue === false) {
-               this._clockOut(2);
+
+             for (var l=0; l<longitude.length; l++) {
+               if (this._lngMatch(this.state.longitude, longitude[l])) {
+                 lngTrue = true;
+               }
              }
+
+             if (latTrue && lngTrue) {
+               this._clockIn(2);
+               console.log("fire");
+             }
+
            })
            .catch((error) => {
              console.error(error);
            });
        }
+     }
+     for (var k=0; k<latitude.length; k++) {
+       if (this._latMatch(this.state.latitude, latitude[k])) {
+         latTrue = true;
+       }
+     }
+
+     for (var l=0; l<longitude.length; l++) {
+       if (this._lngMatch(this.state.longitude, longitude[l])) {
+         lngTrue = true;
+       }
+     }
+
+     if (latTrue && lngTrue) {
+       this._clockIn(2);
+       console.log("fire");
      }
    });
   }
@@ -118,7 +142,7 @@ class Location extends Component {
   }
 
    componentWillMount() {
-     this.timer = setInterval(()=> this._getCurrentLocation(), 1000);
+     this.timer = setInterval(()=> this._getCurrentLocation(), 10000);
   }
 
   render() {
