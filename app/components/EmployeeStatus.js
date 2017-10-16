@@ -1,11 +1,17 @@
 import React, { Component }                        from 'react';
 import { ActivityIndicator, ListView, Text, View, ScrollView } from 'react-native';
 
-class EmployeeList extends Component {
+class EmployeeStatus extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      user: '',
+      bizId: '',
+      weekTimeInHours: '',
+      payRate: '',
+      totalPay: '',
+      clocked: '',
     }
   }
 
@@ -14,7 +20,7 @@ class EmployeeList extends Component {
       const value = await AsyncStorage.getItem('userId');
       if (value !== null){
         console.log("async test: " + value);
-        return value;
+        return JSON.parse(value);
       }
     } catch (error) {
       // Error retrieving data
@@ -22,15 +28,19 @@ class EmployeeList extends Component {
   }
 
   componentWillMount() {
-    let id = 2;
-    fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
+    fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + this._getUserId())
       .then((response) => response.json())
       .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
+          user: responseJson.user,
+          bizId: responseJson.bizId,
+          weekTimeInHours: responseJson.weekTimeInHours,
+          payRate: responseJson.payRate,
+          totalPay: responseJson.totalPay,
+          clocked: responseJson.clocked,
         });
+        console.log(responseJson);
       })
       .catch((error) => {
         console.error(error);
@@ -48,24 +58,19 @@ class EmployeeList extends Component {
 
     return (
       <View>
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =>
           <Text style={ styles.listStyle }>
             <Text style={ styles.userStyle } >
-              {rowData.user + " "}
+              {this.state.user + " "}
             </Text>
 
             <Text style={ styles.listStyle } >
-              {"Business ID: " + rowData.bizId},
-              {"Week Time: " + rowData.weekTimeInHours},
-              {"Pay Rate: " + rowData.payRate},
-              {"Period Pay: " + rowData.totalPay},
-              {"Clock In Status: " + rowData.clocked}
+              {"Business ID: " + this.state.bizId},
+              {"Week Time: " + this.state.weekTimeInHours},
+              {"Pay Rate: " + this.state.payRate},
+              {"Period Pay: " + this.state.totalPay},
+              {"Clock In Status: " + this.state.clocked}
             </Text>
           </Text>
-        }
-      />
       </View>
     );
   }
@@ -91,4 +96,4 @@ const styles = {
 
 }
 
-export default EmployeeList;
+export default EmployeeStatus;

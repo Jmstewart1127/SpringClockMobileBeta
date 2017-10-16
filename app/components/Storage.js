@@ -9,6 +9,9 @@ class Storage extends Component {
 
     };
   }
+
+  let userId = { id: this.props.id, };
+
   componentDidMount () {
     this._updateList();
   }

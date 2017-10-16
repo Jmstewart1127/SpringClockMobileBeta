@@ -14,6 +14,18 @@ class Location extends Component {
     };
   }
 
+  async _getUserId() {
+    try {
+      const value = await AsyncStorage.getItem('userId');
+      if (value !== null){
+        console.log("async test: " + value);
+        return value;
+      }
+    } catch (error) {
+
+    }
+  }
+
   _lngMatch(userLng, addressLng) {
     if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
       console.log("lng true");
@@ -35,7 +47,7 @@ class Location extends Component {
   }
 
   _clockIn() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + 2)
+   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + this._getUserId())
      .then((responseJson) => {
        return responseJson;
      })
@@ -45,7 +57,7 @@ class Location extends Component {
   }
 
   _clockOut() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + 2)
+   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + this._getUserId())
      .then((responseJson) => {
        return responseJson;
        console.log("clocked out");
@@ -56,70 +68,29 @@ class Location extends Component {
   }
 
   _getAddresses(bizId) {
-    let latTrue = false;
-    let lngTrue = false;
-    var latitude = [];
-    var longitude = [];
-
    fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())
    .then((responseJson) => {
      var addresses = [];
      console.log('addresses: ' + responseJson);
-
      for (var i=0; i<responseJson.length; i++) {
        addresses.push(responseJson[i]);
        for (var j=0; j<addresses.length; j++) {
          fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ addresses[j].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
            .then((response) => response.json())
            .then((responseJson) => {
-             this.setState({
-               addressLat: responseJson.results["0"].geometry.location.lat,
-               addressLng: responseJson.results["0"].geometry.location.lng,
-             });
-             console.log("abc: " + this.state.addressLat);
-             console.log("def: " + this.state.addressLng);
-             latitude.push(responseJson.results["0"].geometry.location.lat);
-             longitude.push(responseJson.results["0"].geometry.location.lng);
-
-             for (var k=0; k<latitude.length; k++) {
-               if (this._latMatch(this.state.latitude, latitude[k])) {
-                 latTrue = true;
-               }
-             }
-
-             for (var l=0; l<longitude.length; l++) {
-               if (this._lngMatch(this.state.longitude, longitude[l])) {
-                 lngTrue = true;
-               }
-             }
-
-             if (latTrue && lngTrue) {
-               this._clockIn(2);
+             let lat = responseJson.results["0"].geometry.location.lat;
+             let lng = responseJson.results["0"].geometry.location.lng;
+             console.log("coordinates: " + lat + " " + lng);
+             if (this._latMatch(this.state.latitude, lat) && this._lngMatch(this.state.longitude, lng)) {
+               this._clockIn();
                console.log("fire");
              }
-
            })
            .catch((error) => {
              console.error(error);
            });
        }
-     }
-     for (var k=0; k<latitude.length; k++) {
-       if (this._latMatch(this.state.latitude, latitude[k])) {
-         latTrue = true;
-       }
-     }
-
-     for (var l=0; l<longitude.length; l++) {
-       if (this._lngMatch(this.state.longitude, longitude[l])) {
-         lngTrue = true;
-       }
-     }
-
-     if (latTrue && lngTrue) {
-       this._clockIn(2);
-       console.log("fire");
      }
    });
   }
@@ -148,7 +119,7 @@ class Location extends Component {
   render() {
     return (
         <Text style={styles.textStyle}>
-          Start/End Shift
+
         </Text>
     );
   }

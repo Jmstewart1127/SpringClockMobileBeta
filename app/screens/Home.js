@@ -27,7 +27,6 @@ class Home extends Component {
           <EmployeeList></EmployeeList>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
-    
       </View>
     );
   }

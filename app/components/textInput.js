@@ -12,8 +12,8 @@ class MyTextInput extends Component {
       <TextInput
         style={styles.textInputStyle}
         {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-        editable = {true}
-        maxLength = {40}
+        editable = { true }
+        maxLength = { 40 }
       />
     );
   }

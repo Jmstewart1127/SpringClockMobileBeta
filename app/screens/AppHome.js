@@ -6,9 +6,10 @@ import Rest               from '../components/rest.js'
 import Button             from '../components/button.js';
 import MyTextInput        from '../components/textInput.js';
 import EmployeeList       from '../components/EmployeeList.js';
-import Clock              from '../components/Clock.js'
-import Location           from '../components/Location.js'
-import AddressLocation    from '../components/AddressLocation.js'
+import Clock              from '../components/Clock.js';
+import Location           from '../components/Location.js';
+import AddressLocation    from '../components/AddressLocation.js';
+import EmployeeStatus     from '../components/EmployeeStatus.js';
 
 class AppHome extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class AppHome extends Component {
         <Text style={ styles.labelStyle }>Enter Employee ID</Text>
           <Clock></Clock>
           <Text style={ styles.componentPadding }></Text>
-          <EmployeeList></EmployeeList>
+          <EmployeeStatus></EmployeeStatus>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
       </View>

@@ -9,7 +9,7 @@ export const FeedStack = StackNavigator({
   AppHome: {
     screen: AppHome,
     navigationOptions: {
-      title: 'Feed',
+      title: 'Status',
     },
   },
   Home: {
@@ -27,7 +27,7 @@ export const Tabs = TabNavigator({
       tabBarLabel: 'Home',
     },
   },
-  tesstScreen: {
+  Home: {
     screen: Home,
     navigationOptions: {
       tabBarLabel: 'My Status'

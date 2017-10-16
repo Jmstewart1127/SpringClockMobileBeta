@@ -7,8 +7,6 @@ import Location              from '../components/Location.js';
 import AddressLocation       from '../components/AddressLocation.js';
 
 
-
-
 class Clock extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +20,9 @@ class Clock extends Component {
         <MyTextInput
           onChangeText={(text) => this.setState({text:text})}
         ></MyTextInput>
+        <Button
+          id = { userId }
+        />
         <Text
           style={ styles.componentPadding }
         ></Text>
