@@ -46,8 +46,9 @@ class Location extends Component {
     }
   }
 
-  _clockIn() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + this._getUserId())
+  async _clockIn() {
+    let id = await AsyncStorage.getItem('userId');
+    fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id)
      .then((responseJson) => {
        return responseJson;
      })

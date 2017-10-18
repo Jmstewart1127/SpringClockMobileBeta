@@ -1,11 +1,12 @@
 import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView } from 'react-native';
+import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
 
 class EmployeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      bizId: '',
     }
   }
 
@@ -21,9 +22,22 @@ class EmployeeList extends Component {
     }
   }
 
+  _getBizId() {
+    fetch('https://spring-clock.herokuapp.com/rest/get/business/by/user/' + this._getUserId())
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          bizId: responseJson.bizId
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   componentWillMount() {
     let id = 2;
-    fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
+    fetch('https://spring-clock.herokuapp.com/rest/employees/' + this.state.bizId)
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});

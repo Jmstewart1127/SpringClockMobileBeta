@@ -1,5 +1,5 @@
 import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView } from 'react-native';
+import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -19,32 +19,37 @@ class EmployeeStatus extends Component {
     try {
       const value = await AsyncStorage.getItem('userId');
       if (value !== null){
-        console.log("async test: " + value);
-        return JSON.parse(value);
+        return value;
       }
     } catch (error) {
-      // Error retrieving data
+
     }
   }
 
-  componentWillMount() {
-    fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + this._getUserId())
+  async _getUserData() {
+    let id = await AsyncStorage.getItem('userId');
+    fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
-          user: responseJson.user,
-          bizId: responseJson.bizId,
-          weekTimeInHours: responseJson.weekTimeInHours,
-          payRate: responseJson.payRate,
-          totalPay: responseJson.totalPay,
-          clocked: responseJson.clocked,
+          user: responseJson["0"].user,
+          bizId: responseJson["0"].bizId,
+          weekTimeInHours: responseJson["0"].weekTimeInHours,
+          payRate: responseJson["0"].payRate,
+          totalPay: responseJson["0"].totalPay,
+          clocked: responseJson["0"].clocked,
         });
         console.log(responseJson);
+        console.log("test " + id);
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  componentDidMount() {
+    this._getUserData();
   }
 
   render() {
