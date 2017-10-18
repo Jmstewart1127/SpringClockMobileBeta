@@ -46,7 +46,7 @@ class Button extends Component {
         <TouchableOpacity style={ styles.buttonStyle }
            onPress={() => this._onPressButton(this.props.id)}>
           <Text style={styles.textStyle}>
-            Start/End Shift
+            Save
           </Text>
         </TouchableOpacity>
       );
@@ -71,6 +71,9 @@ class Button extends Component {
       borderStyle: 'solid',
       borderRadius: 10,
       backgroundColor: 'transparent',
+      paddingLeft: 40,
+      paddingRight: 40,
+      marginLeft: 6,
     }
   }
 
