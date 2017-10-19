@@ -1,5 +1,6 @@
 import React, { Component }                        from 'react';
 import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
+import Location from '../components/Location.js';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class EmployeeStatus extends Component {
   }
 
   render() {
+    let bizId = this.state.bizId;
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -65,6 +67,9 @@ class EmployeeStatus extends Component {
               {"Clock In Status: " + this.state.clocked}
             </Text>
           </Text>
+          <Location
+            bizId = { bizId }
+          ></Location>
       </View>
     );
   }

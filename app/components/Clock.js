@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry } from 'react-native';
 
-import Button                from '../components/button.js';
-import MyTextInput           from '../components/textInput.js';
+import Button                from '../components/Button.js';
+import MyTextInput           from '../components/TextInput.js';
 import Location              from '../components/Location.js';
 import AddressLocation       from '../components/AddressLocation.js';
 
@@ -26,8 +26,6 @@ class Clock extends Component {
         <Text
           style={ styles.componentPadding }
         ></Text>
-        <Location
-        ></Location>
       </View>
     );
   }

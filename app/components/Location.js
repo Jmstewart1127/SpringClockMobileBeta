@@ -95,7 +95,7 @@ class Location extends Component {
         });
         console.log(this.state.latitude);
         console.log(this.state.longitude);
-        this._getAddresses(2);
+        this._getAddresses(this.props.bizId);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -107,13 +107,14 @@ class Location extends Component {
   }
 
   render() {
-    return (
-        <Text style={styles.textStyle}>
+    const { bizId } = this.props;
+      return (
+          <Text style={styles.textStyle}>
 
-        </Text>
-    );
+          </Text>
+      );
+    }
   }
-}
 
 const styles = {
   textStyle: {

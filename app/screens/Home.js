@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import Rest               from '../components/rest.js'
-import Button             from '../components/button.js';
-import MyTextInput        from '../components/textInput.js';
+import Button             from '../components/Button.js';
+import MyTextInput        from '../components/TextInput.js';
 import EmployeeList       from '../components/EmployeeList.js';
 import Clock              from '../components/Clock.js'
 import Location           from '../components/Location.js'
