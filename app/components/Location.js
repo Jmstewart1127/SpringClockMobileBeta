@@ -14,18 +14,6 @@ class Location extends Component {
     };
   }
 
-  async _getUserId() {
-    try {
-      const value = await AsyncStorage.getItem('userId');
-      if (value !== null){
-        console.log("async test: " + value);
-        return value;
-      }
-    } catch (error) {
-
-    }
-  }
-
   _lngMatch(userLng, addressLng) {
     if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
       console.log("lng true");
@@ -57,8 +45,9 @@ class Location extends Component {
      });
   }
 
-  _clockOut() {
-   fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + this._getUserId())
+  async _clockOut() {
+    let id = await AsyncStorage.getItem('userId');
+    fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
      .then((responseJson) => {
        return responseJson;
        console.log("clocked out");
@@ -66,6 +55,18 @@ class Location extends Component {
      .catch((error) => {
        console.error(error);
      });
+  }
+
+  async _getUserId() {
+    try {
+      const value = await AsyncStorage.getItem('userId');
+      if (value !== null){
+        console.log("async test: " + value);
+        return value;
+      }
+    } catch (error) {
+
+    }
   }
 
   _getAddresses(bizId) {

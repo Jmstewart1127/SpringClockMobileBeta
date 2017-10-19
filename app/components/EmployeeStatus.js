@@ -15,17 +15,6 @@ class EmployeeStatus extends Component {
     }
   }
 
-  async _getUserId() {
-    try {
-      const value = await AsyncStorage.getItem('userId');
-      if (value !== null){
-        return value;
-      }
-    } catch (error) {
-
-    }
-  }
-
   async _getUserData() {
     let id = await AsyncStorage.getItem('userId');
     fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + id)
@@ -41,7 +30,7 @@ class EmployeeStatus extends Component {
           clocked: responseJson["0"].clocked,
         });
         console.log(responseJson);
-        console.log("test " + id);
+
       })
       .catch((error) => {
         console.error(error);

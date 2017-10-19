@@ -11,17 +11,6 @@ class Button extends Component {
     };
   }
 
-
-  _clockIn(id) {
-   fetch('https://spring-clock.herokuapp.com/rest/clockin/' + id)
-     .then((responseJson) => {
-       return responseJson;
-     })
-     .catch((error) => {
-       console.error(error);
-     });
-  }
-
   async _onPressButton(id) {
     var userId = {};
     try {
