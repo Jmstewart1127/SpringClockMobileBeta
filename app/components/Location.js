@@ -57,18 +57,6 @@ class Location extends Component {
      });
   }
 
-  async _getUserId() {
-    try {
-      const value = await AsyncStorage.getItem('userId');
-      if (value !== null){
-        console.log("async test: " + value);
-        return value;
-      }
-    } catch (error) {
-
-    }
-  }
-
   _getAddresses(bizId) {
    fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId)
    .then((response) => response.json())

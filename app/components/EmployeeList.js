@@ -10,18 +10,6 @@ class EmployeeList extends Component {
     }
   }
 
-  async _getUserId() {
-    try {
-      const value = await AsyncStorage.getItem('userId');
-      if (value !== null){
-        console.log("async test: " + value);
-        return value;
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  }
-
   componentWillMount() {
     let id = 2;
     fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
