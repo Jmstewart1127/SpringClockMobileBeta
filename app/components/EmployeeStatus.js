@@ -55,11 +55,11 @@ class EmployeeStatus extends Component {
     return (
       <View>
           <Text style={ styles.listStyle }>
-            <Text style={ styles.userStyle } >
+            <Text style={ styles.userStyle }>
               {this.state.user + " "}
             </Text>
 
-            <Text style={ styles.listStyle } >
+            <Text style={ styles.listStyle }>
               {"Business ID: " + this.state.bizId},
               {"Week Time: " + this.state.weekTimeInHours},
               {"Pay Rate: " + this.state.payRate},

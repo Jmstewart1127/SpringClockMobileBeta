@@ -1,0 +1,237 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = '/React/SpringClockMobile/app/components/Location.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var regeneratorRuntime = require('regenerator-runtime');
+
+var Location = function (_Component) {
+  babelHelpers.inherits(Location, _Component);
+
+  function Location(props) {
+    babelHelpers.classCallCheck(this, Location);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).call(this, props));
+
+    _this.state = {
+      latitude: null,
+      longitude: null,
+      addressLat: null,
+      addressLng: null,
+      coordinateMatches: [],
+      error: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(Location, [{
+    key: '_lngMatch',
+    value: function _lngMatch(userLng, addressLng) {
+      if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
+        console.log("lng true");
+        return true;
+      } else {
+        console.log("false");
+        return false;
+      }
+    }
+  }, {
+    key: '_latMatch',
+    value: function _latMatch(userLat, addressLat) {
+      if (userLat + 0.005 > addressLat && userLat - 0.005 < addressLat) {
+        console.log("lat true");
+        return true;
+      } else {
+        console.log("false");
+        return false;
+      }
+    }
+  }, {
+    key: '_clockIn',
+    value: function _clockIn() {
+      var id;
+      return regeneratorRuntime.async(function _clockIn$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem('userId'));
+
+            case 2:
+              id = _context.sent;
+
+              fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id).then(function (responseJson) {
+                return responseJson;
+              }).catch(function (error) {
+                console.error(error);
+              });
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, null, this);
+    }
+  }, {
+    key: '_clockOut',
+    value: function _clockOut() {
+      var id;
+      return regeneratorRuntime.async(function _clockOut$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem('userId'));
+
+            case 2:
+              id = _context2.sent;
+
+              fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id).then(function (responseJson) {
+                return responseJson;
+                console.log("clocked out");
+              }).catch(function (error) {
+                console.error(error);
+              });
+
+            case 4:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    }
+  }, {
+    key: '_checkTrue',
+    value: function _checkTrue(arr, val) {
+      return arr.some(function (arrVal) {
+        console.log("in: " + arrVal);
+        return val === arrVal;
+      });
+    }
+  }, {
+    key: '_checkFalse',
+    value: function _checkFalse(arr, val) {
+      return arr.every(function (arrVal) {
+        console.log("out: " + arrVal);
+        return val === arrVal;
+      });
+    }
+  }, {
+    key: '_clockInAndOut',
+    value: function _clockInAndOut(arr) {
+      if (this._checkTrue(arr, true)) {
+        this._clockIn();
+      } else {
+        this._clockOut();
+      }
+    }
+  }, {
+    key: '_getAddresses',
+    value: function _getAddresses(bizId) {
+      var _this2 = this;
+
+      fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId).then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        var addresses = [];
+        var coordMatch = [];
+        console.log('addresses: ' + responseJson);
+        for (var i = 0; i < responseJson.length; i++) {
+          addresses.push(responseJson[i]);
+          for (var j = 0; j < addresses.length; j++) {
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[j].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8').then(function (response) {
+              return response.json();
+            }).then(function (responseJson) {
+              var lat = responseJson.results["0"].geometry.location.lat;
+              var lng = responseJson.results["0"].geometry.location.lng;
+              console.log("coordinates: " + lat + " " + lng);
+              if (_this2._latMatch(_this2.state.latitude, lat) && _this2._lngMatch(_this2.state.longitude, lng)) {
+                var match = true;
+                coordMatch.push(match);
+              } else {
+                var noMatch = false;
+                coordMatch.push(noMatch);
+              }
+              _this2.setState({
+                coordinateMatches: coordMatch
+              });
+            }).catch(function (error) {
+              console.error(error);
+            });
+          }
+        }
+      });
+    }
+  }, {
+    key: '_getCurrentLocation',
+    value: function _getCurrentLocation() {
+      var _this3 = this;
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+        _this3.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+        console.log(_this3.state.latitude);
+        console.log(_this3.state.longitude);
+        _this3._getAddresses(_this3.props.bizId);
+        _this3._clockInAndOut(_this3.state.coordinateMatches);
+        console.log("cm " + _this3.state.coordinateMatches);
+      }, function (error) {
+        return _this3.setState({ error: error.message });
+      }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this4 = this;
+
+      this.timer = setInterval(function () {
+        return _this4._getCurrentLocation();
+      }, 10000);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var bizId = this.props.bizId;
+
+      return _react2.default.createElement(_reactNative.Text, { style: styles.textStyle, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 144
+        }
+      });
+    }
+  }]);
+  return Location;
+}(_react.Component);
+
+var styles = {
+  textStyle: {
+    alignSelf: 'center',
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10
+  },
+  buttonStyle: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    borderRadius: 10,
+    backgroundColor: 'transparent'
+  }
+};
+
+exports.default = Location;

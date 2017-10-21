@@ -1,0 +1,179 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = '/React/SpringClockMobile/app/components/EmployeeStatus.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _Location = require('../components/Location.js');
+
+var _Location2 = babelHelpers.interopRequireDefault(_Location);
+
+var regeneratorRuntime = require('regenerator-runtime');
+
+var EmployeeStatus = function (_Component) {
+  babelHelpers.inherits(EmployeeStatus, _Component);
+
+  function EmployeeStatus(props) {
+    babelHelpers.classCallCheck(this, EmployeeStatus);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (EmployeeStatus.__proto__ || Object.getPrototypeOf(EmployeeStatus)).call(this, props));
+
+    _this.state = {
+      isLoading: true,
+      user: '',
+      bizId: '',
+      weekTimeInHours: '',
+      payRate: '',
+      totalPay: '',
+      clocked: ''
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(EmployeeStatus, [{
+    key: '_getUserData',
+    value: function _getUserData() {
+      var _this2 = this;
+
+      var id;
+      return regeneratorRuntime.async(function _getUserData$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem('userId'));
+
+            case 2:
+              id = _context.sent;
+
+              fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + id).then(function (response) {
+                return response.json();
+              }).then(function (responseJson) {
+                _this2.setState({
+                  isLoading: false,
+                  user: responseJson["0"].user,
+                  bizId: responseJson["0"].bizId,
+                  weekTimeInHours: responseJson["0"].weekTimeInHours,
+                  payRate: responseJson["0"].payRate,
+                  totalPay: responseJson["0"].totalPay,
+                  clocked: responseJson["0"].clocked
+                });
+                console.log(responseJson);
+              }).catch(function (error) {
+                console.error(error);
+              });
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, null, this);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this._getUserData();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var bizId = this.state.bizId;
+      if (this.state.isLoading) {
+        return _react2.default.createElement(
+          _reactNative.View,
+          { style: { flex: 1, paddingTop: 20 }, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 49
+            }
+          },
+          _react2.default.createElement(_reactNative.ActivityIndicator, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 50
+            }
+          })
+        );
+      }
+
+      return _react2.default.createElement(
+        _reactNative.View,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 56
+          }
+        },
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.listStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 57
+            }
+          },
+          _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.userStyle, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 58
+              }
+            },
+            this.state.user + " "
+          ),
+          _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.listStyle, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 62
+              }
+            },
+            "Business ID: " + this.state.bizId,
+            ',',
+            "Week Time: " + this.state.weekTimeInHours,
+            ',',
+            "Pay Rate: " + this.state.payRate,
+            ',',
+            "Period Pay: " + this.state.totalPay,
+            ',',
+            "Clock In Status: " + this.state.clocked
+          )
+        ),
+        _react2.default.createElement(_Location2.default, {
+          bizId: bizId,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 70
+          }
+        })
+      );
+    }
+  }]);
+  return EmployeeStatus;
+}(_react.Component);
+
+var styles = {
+  listStyle: {
+    textAlign: 'left',
+    borderRadius: 0,
+    borderWidth: 1,
+    backgroundColor: '#F3F1F1',
+    padding: 10
+  },
+
+  userStyle: {
+    textAlign: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'blue',
+    fontWeight: 'bold',
+    fontSize: 18
+  }
+
+};
+
+exports.default = EmployeeStatus;

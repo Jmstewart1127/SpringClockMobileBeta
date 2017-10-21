@@ -1,0 +1,54 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = '/React/SpringClockMobile/app/components/TextInput.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var MyTextInput = function (_Component) {
+  babelHelpers.inherits(MyTextInput, _Component);
+
+  function MyTextInput(props) {
+    babelHelpers.classCallCheck(this, MyTextInput);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (MyTextInput.__proto__ || Object.getPrototypeOf(MyTextInput)).call(this, props));
+
+    _this.state = { text: "Enter ID" };
+    return _this;
+  }
+
+  babelHelpers.createClass(MyTextInput, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_reactNative.TextInput, babelHelpers.extends({
+        style: styles.textInputStyle
+      }, this.props, {
+        editable: true,
+        maxLength: 40,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12
+        }
+      }));
+    }
+  }]);
+  return MyTextInput;
+}(_react.Component);
+
+var styles = {
+  textInputStyle: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 40,
+    justifyContent: 'center',
+    paddingLeft: 4,
+    width: 210
+  }
+};
+
+exports.default = MyTextInput;

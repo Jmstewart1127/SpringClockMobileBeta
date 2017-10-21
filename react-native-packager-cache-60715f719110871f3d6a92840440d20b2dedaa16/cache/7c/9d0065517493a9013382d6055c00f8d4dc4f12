@@ -1,0 +1,201 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = '/React/SpringClockMobile/app/components/AddressLocation.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var Location = function (_Component) {
+  babelHelpers.inherits(Location, _Component);
+
+  function Location(props) {
+    babelHelpers.classCallCheck(this, Location);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).call(this, props));
+
+    _this.state = {
+      latitude: null,
+      longitude: null,
+      addressLat: null,
+      addressLng: null,
+      error: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(Location, [{
+    key: '_getLatitude',
+    value: function _getLatitude() {
+      return this.state.latitude;
+    }
+  }, {
+    key: '_getLongitude',
+    value: function _getLongitude() {
+      return this.state.longitude;
+    }
+  }, {
+    key: '_locationMatch',
+    value: function _locationMatch(addressLat, addressLng, userLat, userLng, id) {
+      console.log("ul: " + userLat);
+      console.log("uLng: " + userLng);
+      console.log("addLt: " + addressLat);
+      console.log("addLng: " + addressLng);
+      console.log(id);
+
+      if (this._lngMatch(userLng, addressLng) === true && this._latMatch(userLat, addressLat) === true) {
+        this._clockIn(id);
+        console.log("fire");
+      } else {
+        this._clockOut(id);
+      }
+    }
+  }, {
+    key: '_lngMatch',
+    value: function _lngMatch(userLng, addressLng) {
+      if (userLng + 0.0000005 > addressLng && userLng - 0.0000005 < addressLng) {
+        console.log("lng true");
+        return true;
+      } else {
+        console.log("false");
+        return false;
+      }
+    }
+  }, {
+    key: '_latMatch',
+    value: function _latMatch(userLat, addressLat) {
+      if (userLat + 0.0000005 > addressLat && userLat - 0.0000005 < addressLat) {
+        console.log("lat true");
+        return true;
+      } else {
+        console.log("false");
+        return false;
+      }
+    }
+  }, {
+    key: '_clockIn',
+    value: function _clockIn(id) {
+      fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id).then(function (responseJson) {
+        return responseJson;
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  }, {
+    key: '_clockOut',
+    value: function _clockOut(id) {
+      fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id).then(function (responseJson) {
+        return responseJson;
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  }, {
+    key: '_getAddresses',
+    value: function _getAddresses(bizId) {
+      var _this2 = this;
+
+      fetch('https://spring-clock.herokuapp.com/rest/jobs/address/' + bizId).then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        var addresses = [];
+        console.log('addresses: ' + responseJson);
+
+        for (var i = 0; i < responseJson; i++) {
+          addresses.push(responseJson[i]);
+          fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[i].split(" ") + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8').then(function (response) {
+            return response.json();
+          }).then(function (responseJson) {
+            _this2.setState({
+              addressLat: responseJson.results["0"].geometry.location.lat,
+              addressLng: responseJson.results["0"].geometry.location.lng,
+              isLoading: false
+            });
+          }).then(function (match) {
+            match._locationMatch(_this2.state.addressLat, _this2.state.addressLng, _this2.state.latitude, _this2.state.longitude, 2);
+          }).catch(function (error) {
+            console.error(error);
+          });
+        }
+      });
+    }
+  }, {
+    key: '_getCurrentLocation',
+    value: function _getCurrentLocation() {
+      var _this3 = this;
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+        _this3.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+        console.log(_this3.state.latitude);
+        console.log(_this3.state.longitude);
+        _this3._getAddresses(2);
+      }, function (error) {
+        return _this3.setState({ error: error.message });
+      }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this._getCurrentLocation();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
+
+      var id = this.props.id;
+
+      return _react2.default.createElement(
+        _reactNative.TouchableOpacity,
+        { style: styles.buttonStyle,
+          onPress: function onPress() {
+            return _this4._locationMatch(_this4.state.addressLat, _this4.state.addressLng, _this4.state.latitude, _this4.state.longitude, 2);
+          }, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 140
+          }
+        },
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.textStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 148
+            }
+          },
+          'Start/End Shift'
+        )
+      );
+    }
+  }]);
+  return Location;
+}(_react.Component);
+
+var styles = {
+  textStyle: {
+    alignSelf: 'center',
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10
+  },
+  buttonStyle: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    borderRadius: 10,
+    backgroundColor: 'transparent'
+  }
+};
+
+exports.default = Location;

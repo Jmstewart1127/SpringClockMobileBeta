@@ -1,0 +1,60 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Root = exports.Tabs = exports.FeedStack = undefined;
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNavigation = require('react-navigation');
+
+var _AppHome = require('../screens/AppHome.js');
+
+var _AppHome2 = babelHelpers.interopRequireDefault(_AppHome);
+
+var _Home = require('../screens/Home.js');
+
+var _Home2 = babelHelpers.interopRequireDefault(_Home);
+
+var FeedStack = exports.FeedStack = (0, _reactNavigation.StackNavigator)({
+  AppHome: {
+    screen: _AppHome2.default,
+    navigationOptions: {
+      title: 'Status'
+    }
+  },
+  Home: {
+    screen: _Home2.default,
+    navigationOptions: {
+      title: 'Home'
+    }
+  }
+});
+
+var Tabs = exports.Tabs = (0, _reactNavigation.TabNavigator)({
+  AppHome: {
+    screen: FeedStack,
+    navigationOptions: {
+      tabBarLabel: 'Home'
+    }
+  },
+  Home: {
+    screen: _Home2.default,
+    navigationOptions: {
+      tabBarLabel: 'My Status'
+    }
+  }
+});
+
+var Root = exports.Root = (0, _reactNavigation.StackNavigator)({
+  Tabs: {
+    screen: Tabs
+  },
+  Settings: {
+    screen: _AppHome2.default
+  }
+}, {
+  mode: 'modal',
+  headerMode: 'none'
+});

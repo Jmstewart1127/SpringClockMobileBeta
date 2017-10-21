@@ -1,0 +1,130 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = '/React/SpringClockMobile/app/components/Button.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var regeneratorRuntime = require('regenerator-runtime');
+
+var Button = function (_Component) {
+  babelHelpers.inherits(Button, _Component);
+
+  function Button(props) {
+    babelHelpers.classCallCheck(this, Button);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+    _this.state = {
+      userId: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(Button, [{
+    key: '_onPressButton',
+    value: function _onPressButton(id) {
+      var userId, value;
+      return regeneratorRuntime.async(function _onPressButton$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              userId = {};
+              _context.prev = 1;
+              _context.next = 4;
+              return regeneratorRuntime.awrap(_reactNative.AsyncStorage.setItem('userId', id));
+
+            case 4:
+              _context.next = 8;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context['catch'](1);
+
+            case 8:
+              _context.prev = 8;
+              _context.next = 11;
+              return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem('userId'));
+
+            case 11:
+              value = _context.sent;
+
+              if (value !== null) {
+                console.log("async test: " + value);
+              }
+              _context.next = 17;
+              break;
+
+            case 15:
+              _context.prev = 15;
+              _context.t1 = _context['catch'](8);
+
+            case 17:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, null, this, [[1, 6], [8, 15]]);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var id = this.props.id;
+
+      return _react2.default.createElement(
+        _reactNative.TouchableOpacity,
+        { style: styles.buttonStyle,
+          onPress: function onPress() {
+            return _this2._onPressButton(_this2.props.id);
+          }, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 35
+          }
+        },
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.textStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 37
+            }
+          },
+          'Save'
+        )
+      );
+    }
+  }]);
+  return Button;
+}(_react.Component);
+
+var styles = {
+  textStyle: {
+    alignSelf: 'center',
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10
+  },
+  buttonStyle: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    paddingLeft: 40,
+    paddingRight: 40,
+    marginLeft: 6
+  }
+};
+
+exports.default = Button;
