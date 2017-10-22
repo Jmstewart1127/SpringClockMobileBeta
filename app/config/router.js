@@ -16,7 +16,7 @@ export const FeedStack = StackNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      title: 'Home',
+      title: 'My ID#',
     }
   },
 });

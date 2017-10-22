@@ -1,9 +1,7 @@
-import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView,
-  Text, View, ScrollView,
-  AsyncStorage, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator, ListView,Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Location from '../components/Location.js';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -41,12 +39,21 @@ class EmployeeStatus extends Component {
       });
   }
 
+  _clockStatusText() {
+    if (this.state.clocked) {
+      return "Clocked In";
+    } else {
+      return "Clocked Out";
+    }
+  }
+
   componentDidMount() {
     this._getUserData();
   }
 
   render() {
     let bizId = this.state.bizId;
+    const myIcon = (<Icon name='refresh' size={33} color='#3457E6' />);
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -57,29 +64,22 @@ class EmployeeStatus extends Component {
 
     return (
       <View>
-        <Text style={ styles.userStyle }>
-          {this.state.user + " "}
-        </Text>
-        <Text style={ styles.listStyle }>
-          {"Week Time: " + this.state.weekTimeInHours},
-        </Text>
-        <Text style={ styles.listStyle }>
-          {"Pay Rate: " + this.state.payRate},
-        </Text>
-        <Text style={ styles.listStyle }>
-          {"Period Pay: " + this.state.totalPay},
-        </Text>
-        <Text style={ styles.listStyle }>
-          {"Clock In Status: " + this.state.clocked}
-        </Text>
-
+        <View style={ styles.listStyle }>
+          <Text style={ styles.userStyle }>
+            {this.state.user + " "}
+          </Text>
+          <Text style={ styles.textStyle }>{"Week Time: " + this.state.weekTimeInHours}</Text>
+          <Text style={ styles.textStyle }>{"Pay Rate: " + "$" + this.state.payRate}</Text>
+          <Text style={ styles.textStyle }>{"Period Pay: " + "$" + this.state.totalPay}</Text>
+          <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
+        </View>
         <Location
           bizId = { bizId }
         ></Location>
         <TouchableOpacity style={ styles.buttonStyle }
            onPress={() => this._getUserData()}>
-          <Text style={ styles.textStyle }>
-            <FontAwesome>{ Icons.home }</FontAwesome>
+          <Text style={ styles.iconStyle }>
+            { myIcon }
           </Text>
         </TouchableOpacity>
       </View>
@@ -88,13 +88,17 @@ class EmployeeStatus extends Component {
 }
 
 const styles = {
+
   listStyle: {
-    textAlign: 'left',
-    borderRadius: 0,
+    alignItems: 'center',
+    width: 233,
+    borderRadius: 50,
     borderWidth: 1,
     borderColor: 'transparent',
-    backgroundColor: '#F3F1F1',
+    backgroundColor: '#5C77E6',
     padding: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 
   userStyle: {
@@ -102,6 +106,9 @@ const styles = {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    color: 'white',
   },
 
   buttonStyle: {
@@ -116,6 +123,12 @@ const styles = {
   },
 
   textStyle: {
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+
+  iconStyle: {
     textAlign: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
