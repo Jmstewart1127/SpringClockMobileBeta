@@ -22,10 +22,8 @@ class Home extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={ styles.outerScreen }>
-          <Text style={ styles.componentPadding }></Text>
-          <EmployeeList></EmployeeList>
-          <Text style={ styles.componentPadding }></Text>
-          <Text style={ styles.componentPadding }></Text>
+        <Text style={ styles.labelStyle }>Enter Employee ID</Text>
+        <Clock></Clock>
       </View>
     );
   }

@@ -1,0 +1,9 @@
+var _reactNative = require('react-native');
+
+var _App = require('./App');
+
+var _App2 = babelHelpers.interopRequireDefault(_App);
+
+_reactNative.AppRegistry.registerComponent('SpringClockMobile', function () {
+  return _App2.default;
+});

@@ -42,7 +42,8 @@ var Tabs = exports.Tabs = (0, _reactNavigation.TabNavigator)({
   Home: {
     screen: _Home2.default,
     navigationOptions: {
-      tabBarLabel: 'My Status'
+      tabBarLabel: 'My ID#'
+
     }
   }
 });

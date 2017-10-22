@@ -62,25 +62,19 @@ var Home = (_temp = _class = function (_Component) {
             lineNumber: 24
           }
         },
-        _react2.default.createElement(_reactNative.Text, { style: styles.componentPadding, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 25
-          }
-        }),
-        _react2.default.createElement(_EmployeeList2.default, {
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.labelStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 25
+            }
+          },
+          'Enter Employee ID'
+        ),
+        _react2.default.createElement(_Clock2.default, {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 26
-          }
-        }),
-        _react2.default.createElement(_reactNative.Text, { style: styles.componentPadding, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 27
-          }
-        }),
-        _react2.default.createElement(_reactNative.Text, { style: styles.componentPadding, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 28
           }
         })
       );

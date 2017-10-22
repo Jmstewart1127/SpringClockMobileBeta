@@ -23,12 +23,10 @@ class AppHome extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={ styles.outerScreen }>
-        <Text style={ styles.labelStyle }>Enter Employee ID</Text>
-          <Clock></Clock>
-          <Text style={ styles.componentPadding }></Text>
-          <EmployeeStatus></EmployeeStatus>
-          <Text style={ styles.componentPadding }></Text>
-          <Text style={ styles.componentPadding }></Text>
+        <Text style={ styles.componentPadding }></Text>
+        <EmployeeStatus></EmployeeStatus>
+        <Text style={ styles.componentPadding }></Text>
+        <Text style={ styles.componentPadding }></Text>
       </View>
     );
   }

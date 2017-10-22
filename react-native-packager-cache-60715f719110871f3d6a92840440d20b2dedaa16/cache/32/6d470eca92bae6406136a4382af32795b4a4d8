@@ -1,7 +1,5 @@
 
-var g = function () {
-  return this;
-}() || Function("return this")();
+var g = typeof global === "object" ? global : typeof window === "object" ? window : typeof self === "object" ? self : this;
 
 var hadRuntime = g.regeneratorRuntime && Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
 

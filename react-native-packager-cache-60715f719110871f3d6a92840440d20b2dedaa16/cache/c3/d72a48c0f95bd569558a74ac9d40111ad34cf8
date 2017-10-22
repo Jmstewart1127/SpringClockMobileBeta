@@ -13,7 +13,9 @@ var _Location = require('../components/Location.js');
 
 var _Location2 = babelHelpers.interopRequireDefault(_Location);
 
-var regeneratorRuntime = require('regenerator-runtime');
+var _reactNativeFontawesome = require('react-native-fontawesome');
+
+var _reactNativeFontawesome2 = babelHelpers.interopRequireDefault(_reactNativeFontawesome);
 
 var EmployeeStatus = function (_Component) {
   babelHelpers.inherits(EmployeeStatus, _Component);
@@ -83,19 +85,21 @@ var EmployeeStatus = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var bizId = this.state.bizId;
       if (this.state.isLoading) {
         return _react2.default.createElement(
           _reactNative.View,
           { style: { flex: 1, paddingTop: 20 }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 49
+              lineNumber: 52
             }
           },
           _react2.default.createElement(_reactNative.ActivityIndicator, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 50
+              lineNumber: 53
             }
           })
         );
@@ -106,50 +110,93 @@ var EmployeeStatus = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 56
+            lineNumber: 59
           }
         },
         _react2.default.createElement(
           _reactNative.Text,
-          { style: styles.listStyle, __source: {
+          { style: styles.userStyle, __source: {
               fileName: _jsxFileName,
-              lineNumber: 57
+              lineNumber: 60
             }
           },
-          _react2.default.createElement(
-            _reactNative.Text,
-            { style: styles.userStyle, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 58
-              }
-            },
-            this.state.user + " "
-          ),
-          _react2.default.createElement(
-            _reactNative.Text,
-            { style: styles.listStyle, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 62
-              }
-            },
-            "Business ID: " + this.state.bizId,
-            ',',
-            "Week Time: " + this.state.weekTimeInHours,
-            ',',
-            "Pay Rate: " + this.state.payRate,
-            ',',
-            "Period Pay: " + this.state.totalPay,
-            ',',
-            "Clock In Status: " + this.state.clocked
-          )
+          this.state.user + " "
+        ),
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.listStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 63
+            }
+          },
+          "Week Time: " + this.state.weekTimeInHours,
+          ','
+        ),
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.listStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 66
+            }
+          },
+          "Pay Rate: " + this.state.payRate,
+          ','
+        ),
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.listStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 69
+            }
+          },
+          "Period Pay: " + this.state.totalPay,
+          ','
+        ),
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: styles.listStyle, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 72
+            }
+          },
+          "Clock In Status: " + this.state.clocked
         ),
         _react2.default.createElement(_Location2.default, {
           bizId: bizId,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 70
+            lineNumber: 76
           }
-        })
+        }),
+        _react2.default.createElement(
+          _reactNative.TouchableOpacity,
+          { style: styles.buttonStyle,
+            onPress: function onPress() {
+              return _this3._getUserData();
+            }, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 79
+            }
+          },
+          _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.textStyle, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 81
+              }
+            },
+            _react2.default.createElement(
+              _reactNativeFontawesome2.default,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 82
+                }
+              },
+              _reactNativeFontawesome.Icons.home
+            )
+          )
+        )
       );
     }
   }]);
@@ -161,17 +208,33 @@ var styles = {
     textAlign: 'left',
     borderRadius: 0,
     borderWidth: 1,
+    borderColor: 'transparent',
     backgroundColor: '#F3F1F1',
     padding: 10
   },
 
   userStyle: {
+    alignContent: 'center',
     textAlign: 'center',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'blue',
     fontWeight: 'bold',
     fontSize: 18
+  },
+
+  buttonStyle: {
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    borderRadius: 50,
+    backgroundColor: 'transparent',
+    width: 66,
+    height: 66
+  },
+
+  textStyle: {
+    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto'
   }
 
 };

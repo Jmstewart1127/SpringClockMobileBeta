@@ -1,5 +1,6 @@
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+
 //import  Icon from 'react-navigation';
 
 import AppHome from '../screens/AppHome.js';
@@ -30,7 +31,8 @@ export const Tabs = TabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      tabBarLabel: 'My Status'
+      tabBarLabel: 'My ID#'
+
     },
   },
 });

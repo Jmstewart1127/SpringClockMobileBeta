@@ -3,12 +3,10 @@
 !function (global) {
   "use strict";
 
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
+  var hasOwn = Object.prototype.hasOwnProperty;
   var undefined;
   var $Symbol = typeof Symbol === "function" ? Symbol : {};
   var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
   var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
 
   var inModule = typeof module === "object";
@@ -53,18 +51,7 @@
   function GeneratorFunction() {}
   function GeneratorFunctionPrototype() {}
 
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype;
   GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
   GeneratorFunctionPrototype.constructor = GeneratorFunction;
   GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = "GeneratorFunction";
@@ -96,8 +83,12 @@
   };
 
   runtime.awrap = function (arg) {
-    return { __await: arg };
+    return new AwaitArgument(arg);
   };
+
+  function AwaitArgument(arg) {
+    this.arg = arg;
+  }
 
   function AsyncIterator(generator) {
     function invoke(method, arg, resolve, reject) {
@@ -107,8 +98,8 @@
       } else {
         var result = record.arg;
         var value = result.value;
-        if (value && typeof value === "object" && hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function (value) {
+        if (value instanceof AwaitArgument) {
+          return Promise.resolve(value.arg).then(function (value) {
             invoke("next", value, resolve, reject);
           }, function (err) {
             invoke("throw", err, resolve, reject);
@@ -120,6 +111,10 @@
           resolve(result);
         }, reject);
       }
+    }
+
+    if (typeof process === "object" && process.domain) {
+      invoke = process.domain.bind(invoke);
     }
 
     var previousPromise;
@@ -138,10 +133,6 @@
   }
 
   defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
 
   runtime.async = function (innerFn, outerFn, self, tryLocsList) {
     var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList));
@@ -167,30 +158,66 @@
         return doneResult();
       }
 
-      context.method = method;
-      context.arg = arg;
-
       while (true) {
         var delegate = context.delegate;
         if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
+          if (method === "return" || method === "throw" && delegate.iterator[method] === undefined) {
+            context.delegate = null;
+
+            var returnMethod = delegate.iterator["return"];
+            if (returnMethod) {
+              var record = tryCatch(returnMethod, delegate.iterator, arg);
+              if (record.type === "throw") {
+                method = "throw";
+                arg = record.arg;
+                continue;
+              }
+            }
+
+            if (method === "return") {
+              continue;
+            }
           }
+
+          var record = tryCatch(delegate.iterator[method], delegate.iterator, arg);
+
+          if (record.type === "throw") {
+            context.delegate = null;
+
+            method = "throw";
+            arg = record.arg;
+            continue;
+          }
+
+          method = "next";
+          arg = undefined;
+
+          var info = record.arg;
+          if (info.done) {
+            context[delegate.resultName] = info.value;
+            context.next = delegate.nextLoc;
+          } else {
+            state = GenStateSuspendedYield;
+            return info;
+          }
+
+          context.delegate = null;
         }
 
-        if (context.method === "next") {
-          context.sent = context._sent = context.arg;
-        } else if (context.method === "throw") {
+        if (method === "next") {
+          context.sent = context._sent = arg;
+        } else if (method === "throw") {
           if (state === GenStateSuspendedStart) {
             state = GenStateCompleted;
-            throw context.arg;
+            throw arg;
           }
 
-          context.dispatchException(context.arg);
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
+          if (context.dispatchException(arg)) {
+            method = "next";
+            arg = undefined;
+          }
+        } else if (method === "return") {
+          context.abrupt("return", arg);
         }
 
         state = GenStateExecuting;
@@ -199,89 +226,35 @@
         if (record.type === "normal") {
           state = context.done ? GenStateCompleted : GenStateSuspendedYield;
 
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
+          var info = {
             value: record.arg,
             done: context.done
           };
+
+          if (record.arg === ContinueSentinel) {
+            if (context.delegate && method === "next") {
+              arg = undefined;
+            }
+          } else {
+            return info;
+          }
         } else if (record.type === "throw") {
           state = GenStateCompleted;
 
-          context.method = "throw";
-          context.arg = record.arg;
+          method = "throw";
+          arg = record.arg;
         }
       }
     };
   }
 
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError("The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (!info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      context[delegate.resultName] = info.value;
-
-      context.next = delegate.nextLoc;
-
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-    } else {
-      return info;
-    }
-
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
   defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
 
   Gp[iteratorSymbol] = function () {
     return this;
   };
+
+  Gp[toStringTagSymbol] = "Generator";
 
   Gp.toString = function () {
     return "[object Generator]";
@@ -388,9 +361,6 @@
       this.done = false;
       this.delegate = null;
 
-      this.method = "next";
-      this.arg = undefined;
-
       this.tryEntries.forEach(resetTryEntry);
 
       if (!skipTempReset) {
@@ -424,12 +394,6 @@
         record.type = "throw";
         record.arg = exception;
         context.next = loc;
-
-        if (caught) {
-          context.method = "next";
-          context.arg = undefined;
-        }
-
         return !!caught;
       }
 
@@ -484,12 +448,12 @@
       record.arg = arg;
 
       if (finallyEntry) {
-        this.method = "next";
         this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
+      } else {
+        this.complete(record);
       }
 
-      return this.complete(record);
+      return ContinueSentinel;
     },
 
     complete: function complete(record, afterLoc) {
@@ -500,14 +464,11 @@
       if (record.type === "break" || record.type === "continue") {
         this.next = record.arg;
       } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
+        this.rval = record.arg;
         this.next = "end";
       } else if (record.type === "normal" && afterLoc) {
         this.next = afterLoc;
       }
-
-      return ContinueSentinel;
     },
 
     finish: function finish(finallyLoc) {
@@ -544,13 +505,7 @@
         nextLoc: nextLoc
       };
 
-      if (this.method === "next") {
-        this.arg = undefined;
-      }
-
       return ContinueSentinel;
     }
   };
-}(function () {
-  return this;
-}() || Function("return this")());
+}(typeof global === "object" ? global : typeof window === "object" ? window : typeof self === "object" ? self : this);

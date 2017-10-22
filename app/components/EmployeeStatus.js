@@ -1,6 +1,9 @@
 import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
+import { ActivityIndicator, ListView,
+  Text, View, ScrollView,
+  AsyncStorage, TouchableOpacity } from 'react-native';
 import Location from '../components/Location.js';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -54,22 +57,31 @@ class EmployeeStatus extends Component {
 
     return (
       <View>
-          <Text style={ styles.listStyle }>
-            <Text style={ styles.userStyle }>
-              {this.state.user + " "}
-            </Text>
+        <Text style={ styles.userStyle }>
+          {this.state.user + " "}
+        </Text>
+        <Text style={ styles.listStyle }>
+          {"Week Time: " + this.state.weekTimeInHours},
+        </Text>
+        <Text style={ styles.listStyle }>
+          {"Pay Rate: " + this.state.payRate},
+        </Text>
+        <Text style={ styles.listStyle }>
+          {"Period Pay: " + this.state.totalPay},
+        </Text>
+        <Text style={ styles.listStyle }>
+          {"Clock In Status: " + this.state.clocked}
+        </Text>
 
-            <Text style={ styles.listStyle }>
-              {"Business ID: " + this.state.bizId},
-              {"Week Time: " + this.state.weekTimeInHours},
-              {"Pay Rate: " + this.state.payRate},
-              {"Period Pay: " + this.state.totalPay},
-              {"Clock In Status: " + this.state.clocked}
-            </Text>
+        <Location
+          bizId = { bizId }
+        ></Location>
+        <TouchableOpacity style={ styles.buttonStyle }
+           onPress={() => this._getUserData()}>
+          <Text style={ styles.textStyle }>
+            <FontAwesome>{ Icons.home }</FontAwesome>
           </Text>
-          <Location
-            bizId = { bizId }
-          ></Location>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -80,17 +92,33 @@ const styles = {
     textAlign: 'left',
     borderRadius: 0,
     borderWidth: 1,
+    borderColor: 'transparent',
     backgroundColor: '#F3F1F1',
     padding: 10,
   },
 
   userStyle: {
+    alignContent: 'center',
     textAlign: 'center',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'blue',
     fontWeight: 'bold',
     fontSize: 18,
+  },
+
+  buttonStyle: {
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    borderRadius: 50,
+    backgroundColor: 'transparent',
+    width: 66,
+    height: 66,
+  },
+
+  textStyle: {
+    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   }
 
 }
