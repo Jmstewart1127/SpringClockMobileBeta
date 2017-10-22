@@ -65,13 +65,6 @@ class Location extends Component {
     });
   }
 
-  _checkFalse(arr, val) {
-    return arr.every(function(arrVal) {
-      console.log("out: " + arrVal);
-      return val === arrVal;
-    });
-  }
-
   _clockInAndOut(arr) {
     if (this._checkTrue(arr, true)) {
       this._clockIn();
@@ -134,7 +127,7 @@ class Location extends Component {
     );
   }
 
-   componentWillMount() {
+  componentWillMount() {
      this.timer = setInterval(()=> this._getCurrentLocation(), 10000);
   }
 

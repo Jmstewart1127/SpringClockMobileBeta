@@ -43,45 +43,17 @@ class EmployeeStatus extends Component {
     }
   }
 
-  _clockStatusText() {
-    if (this.state.clocked) {
-      return "Clocked In";
-    } else {
-      return "Clocked Out";
-    }
-  }
-
   componentDidMount() {
     this._getUserData();
   }
 
   render() {
-    let bizId = this.state.bizId;
     const myIcon = (<Icon name='refresh' size={33} color='#3457E6' />);
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-
+    const { func } = this.props;
     return (
       <View>
-        <View style={ styles.listStyle }>
-          <Text style={ styles.userStyle }>
-            {this.state.user + " "}
-          </Text>
-          <Text style={ styles.textStyle }>{"Week Time: " + this.state.weekTimeInHours}</Text>
-          <Text style={ styles.textStyle }>{"Pay Rate: " + "$" + this.state.payRate}</Text>
-          <Text style={ styles.textStyle }>{"Net Pay: " + "$" + this.state.totalPay}</Text>
-          <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
-        </View>
-        <Location
-          bizId = { bizId }
-        ></Location>
         <TouchableOpacity style={ styles.buttonStyle }
-           onPress={() => this._getUserData()}>
+           onPress={() => this.props.func}>
           <Text style={ styles.iconStyle }>
             { myIcon }
           </Text>
@@ -93,28 +65,6 @@ class EmployeeStatus extends Component {
 
 const styles = {
 
-  listStyle: {
-    alignItems: 'center',
-    width: 233,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: 'transparent',
-    backgroundColor: '#5C77E6',
-    padding: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-
-  userStyle: {
-    alignContent: 'center',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    color: 'white',
-  },
-
   buttonStyle: {
     alignSelf: 'center',
     borderWidth: 1,
@@ -124,12 +74,6 @@ const styles = {
     backgroundColor: 'transparent',
     width: 66,
     height: 66,
-  },
-
-  textStyle: {
-    color: 'white',
-    marginTop: 10,
-    marginBottom: 10,
   },
 
   iconStyle: {
