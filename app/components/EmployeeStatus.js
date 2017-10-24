@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ListView,Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Location from '../components/Location.js';
 
@@ -34,13 +34,23 @@ class EmployeeStatus extends Component {
           totalPay: responseJson["0"].totalPay,
           clocked: responseJson["0"].clocked,
         });
-        console.log(responseJson);
-
+        this._refreshUserData();
       })
       .catch((error) => {
         console.error(error);
       });
     }
+  }
+
+  async _refreshUserData() {
+    let id = await AsyncStorage.getItem('userId');
+    fetch('https://spring-clock.herokuapp.com/rest/status/refresh/' + id)
+      .then((responseJson) => {
+        return responseJson;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   _clockStatusText() {

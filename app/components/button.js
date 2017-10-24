@@ -22,7 +22,9 @@ class Button extends Component {
       const value = await AsyncStorage.getItem('userId');
       if (value !== null){
         // We have data!!
-        console.log("async test: " + value);
+        if(!__DEV__) {
+          console.log("async test: " + value);
+        }
       }
     } catch (error) {
       // Error retrieving data

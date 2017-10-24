@@ -17,20 +17,16 @@ class Location extends Component {
 
   _lngMatch(userLng, addressLng) {
     if (userLng + 0.005 > addressLng && userLng - 0.005 < addressLng) {
-      console.log("lng true");
       return true;
     } else {
-      console.log("false");
       return false
     }
   }
 
   _latMatch(userLat, addressLat) {
     if (userLat + 0.005 > addressLat && userLat - 0.005 < addressLat) {
-      console.log("lat true");
       return true;
     } else {
-      console.log("false");
       return false;
     }
   }
@@ -51,7 +47,6 @@ class Location extends Component {
     fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
      .then((responseJson) => {
        return responseJson;
-       console.log("clocked out");
      })
      .catch((error) => {
        console.error(error);
@@ -60,7 +55,6 @@ class Location extends Component {
 
   _checkTrue(arr, val) {
     return arr.some(function(arrVal) {
-      console.log("in: " + arrVal);
       return val === arrVal;
     });
   }
@@ -79,7 +73,6 @@ class Location extends Component {
     .then((responseJson) => {
       var addresses = [];
       var coordMatch = [];
-      console.log('addresses: ' + responseJson);
       for (var i=0; i<responseJson.length; i++) {
         addresses.push(responseJson[i]);
         for (var j=0; j<addresses.length; j++) {
@@ -88,7 +81,6 @@ class Location extends Component {
             .then((responseJson) => {
               let lat = responseJson.results["0"].geometry.location.lat;
               let lng = responseJson.results["0"].geometry.location.lng;
-              console.log("coordinates: " + lat + " " + lng);
               if (this._latMatch(this.state.latitude, lat) && this._lngMatch(this.state.longitude, lng)) {
                 let match = true;
                 coordMatch.push(match);
@@ -116,11 +108,8 @@ class Location extends Component {
           longitude: position.coords.longitude,
           error: null,
         });
-        console.log(this.state.latitude);
-        console.log(this.state.longitude);
         this._getAddresses(this.props.bizId);
         this._clockInAndOut(this.state.coordinateMatches);
-        console.log("cm " + this.state.coordinateMatches);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },

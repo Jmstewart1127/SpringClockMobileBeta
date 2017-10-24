@@ -34,8 +34,6 @@ class EmployeeStatus extends Component {
           totalPay: responseJson["0"].totalPay,
           clocked: responseJson["0"].clocked,
         });
-        console.log(responseJson);
-
       })
       .catch((error) => {
         console.error(error);
@@ -52,11 +50,8 @@ class EmployeeStatus extends Component {
     const { func } = this.props;
     return (
       <View>
-        <TouchableOpacity style={ styles.buttonStyle }
+        <TouchableOpacity
            onPress={() => this.props.func}>
-          <Text style={ styles.iconStyle }>
-            { myIcon }
-          </Text>
         </TouchableOpacity>
       </View>
     );

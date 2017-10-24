@@ -44,7 +44,6 @@ class AppHome extends Component {
 
   componentDidMount() {
     this._userIdTrue();
-    console.log('ui ' + this.state.userId);
   }
 
   render() {
@@ -53,6 +52,9 @@ class AppHome extends Component {
         <View style={ styles.outerScreen }>
           <Text style={ styles.labelStyle }>Enter Employee ID</Text>
           <Clock></Clock>
+          <Refresh
+            func = { this._userIdTrue() }
+          ></Refresh>
         </View>
       );
     } else {
