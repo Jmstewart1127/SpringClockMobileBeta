@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import EmployeeStatus from '../components/EmployeeStatus.js';
 
 class Location extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Location extends Component {
       addressLat: null,
       addressLng: null,
       coordinateMatches: [],
+      clockStatus: null,
       error: null,
     };
   }
@@ -62,8 +64,14 @@ class Location extends Component {
   _clockInAndOut(arr) {
     if (this._checkTrue(arr, true)) {
       this._clockIn();
+      this.setState({
+        clockStatus: true,
+      })
     } else {
       this._clockOut();
+      this.setState({
+        clockStatus: false,
+      })
     }
   }
 
@@ -95,10 +103,10 @@ class Location extends Component {
             .catch((error) => {
               console.error(error);
             });
-          }
         }
-      });
-    }
+      }
+    });
+  }
 
   _getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(
@@ -116,32 +124,76 @@ class Location extends Component {
     );
   }
 
+  _clockStatusText() {
+    if (this.state.clockStatus === null) {
+      if (this.props.clockStatus) {
+        return "Clocked In"
+      } else {
+        return "Clocked In"
+      }
+    }
+    if (this.state.clockStatus) {
+      return "Clocked In";
+    } else {
+      return "Clocked Out";
+    }
+  }
+
   componentWillMount() {
      this.timer = setInterval(()=> this._getCurrentLocation(), 10000);
   }
 
   render() {
     const { bizId } = this.props;
+    const { user } = this.props;
+    const { weekTimeInHours } = this.props;
+    const { payRate } = this.props;
+    const { totalPay } = this.props;
+    const { clockStatus } = this.props
       return (
-          <Text style={styles.textStyle}>
-
+        <View style={ styles.listStyle }>
+          <Text style={ styles.userStyle }>
+            {this.props.user + " "}
           </Text>
+          <Text style={ styles.textStyle }>{"Week Time: " + this.props.weekTimeInHours}</Text>
+          <Text style={ styles.textStyle }>{"Pay Rate: " + "$" + this.props.payRate}</Text>
+          <Text style={ styles.textStyle }>{"Net Pay: " + "$" + this.props.totalPay}</Text>
+          <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
+        </View>
       );
     }
   }
 
 const styles = {
-  textStyle: {
-    alignSelf: 'center',
-    color: '#007aff',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 10,
-    paddingLeft: 10,
-    borderRadius: 10
+
+  listStyle: {
+    alignItems: 'center',
+    width: 233,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    backgroundColor: '#5C77E6',
+    padding: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
+
+  userStyle: {
+    alignContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    color: 'white',
+  },
+
+  textStyle: {
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+
   buttonStyle: {
     borderWidth: 1,
     borderColor: 'blue',
