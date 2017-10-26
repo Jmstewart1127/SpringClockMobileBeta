@@ -16,18 +16,17 @@ class Button extends Component {
     try {
       await AsyncStorage.setItem('userId', id);
     } catch (error) {
-      // Error saving data
+      
     }
     try {
       const value = await AsyncStorage.getItem('userId');
       if (value !== null){
-        // We have data!!
         if(!__DEV__) {
           console.log("async test: " + value);
         }
       }
     } catch (error) {
-      // Error retrieving data
+      
     }
   }
 
