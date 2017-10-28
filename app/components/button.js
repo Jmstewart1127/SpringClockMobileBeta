@@ -42,7 +42,6 @@ class Button extends Component {
         </TouchableOpacity>
       );
     }
-
 }
   const styles = {
     textStyle: {
@@ -67,6 +66,5 @@ class Button extends Component {
       marginLeft: 6,
     }
   }
-
 
 export default Button;
