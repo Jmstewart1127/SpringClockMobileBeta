@@ -28,6 +28,8 @@ const styles = {
 	justifyContent: 'center',
 	paddingLeft: 4,
   width: 210,
+  marginLeft: 'auto',
+  marginRight: 'auto',
   }
 }
 

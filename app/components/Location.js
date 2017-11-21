@@ -167,25 +167,30 @@ class Location extends Component {
 const styles = {
 
   listStyle: {
-    alignItems: 'center',
-    width: 233,
-    borderRadius: 50,
+    width: 400,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: 'transparent',
     backgroundColor: '#5C77E6',
     padding: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 0,
+    elevation: 15,
   },
 
   userStyle: {
-    alignContent: 'center',
-    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
     marginTop: 'auto',
     marginBottom: 'auto',
     color: 'white',
+    textAlign: 'left',
+    borderColor: 'white',
+    borderBottomWidth: 1,
+    height: 50,
   },
 
   textStyle: {

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Root, Tabs } from './app/config/router';
+import AppHome from './app/screens/AppHome';
+import { Root, Tabs, FeedStack } from './app/config/router';
 
 class App extends Component {
   render() {
-    return <Root />;
+    return <FeedStack />;
   }
 }
+
 
 export default App;

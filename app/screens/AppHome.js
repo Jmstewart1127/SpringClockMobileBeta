@@ -65,6 +65,12 @@ class AppHome extends Component {
           <EmployeeStatus></EmployeeStatus>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
+          <TouchableOpacity
+            style={ styles.changeId }
+            onPress={() => navigate('Home')}
+          >
+            <Text>Change ID</Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -85,6 +91,12 @@ const styles = {
   labelStyle: {
     paddingLeft: 10,
     paddingTop: 10,
+  },
+
+  changeId: {
+    flexDirection: 'row',
+    marginTop: 160,
+    justifyContent: 'center',
   },
 
   noUserId: {

@@ -20,12 +20,15 @@ class Clock extends Component {
         <MyTextInput
           onChangeText={(text) => this.setState({text:text})}
         ></MyTextInput>
+        <Text
+          style={ styles.buttonPadding }
+        />
         <Button
           id = { userId }
         />
         <Text
           style={ styles.componentPadding }
-        ></Text>
+        />
       </View>
     );
   }
@@ -34,12 +37,15 @@ class Clock extends Component {
 const styles = {
   screenStyle: {
     padding: 10,
-    flexDirection: 'row',
-    width: 1000,
+    flexDirection: 'column',
   },
 
   componentPadding: {
     padding: 5,
+  },
+
+  buttonPadding: {
+    paddingTop: 5,
   },
 
   labelStyle: {
@@ -47,9 +53,6 @@ const styles = {
     paddingTop: 10,
   },
 
-  outerScreen: {
-
-  }
 }
 
 export default Clock;

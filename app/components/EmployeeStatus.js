@@ -99,7 +99,7 @@ const styles = {
     backgroundColor: 'transparent',
     width: 66,
     height: 66,
-    marginTop: 15,
+    marginTop: 20,
   },
 
   textStyle: {

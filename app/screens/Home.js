@@ -21,7 +21,7 @@ class Home extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={ styles.outerScreen }>
+      <View style={ styles.screenStyle }>
         <Text style={ styles.labelStyle }>Enter Employee ID</Text>
         <Clock></Clock>
       </View>
@@ -31,9 +31,19 @@ class Home extends Component {
 
 const styles = {
   screenStyle: {
-    padding: 10,
-    flexDirection: 'row',
-    width: 1000,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: 'transparent',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 0,
+    elevation: 15,
+    paddingBottom: 10,
+    marginBottom: 15,
   },
 
   componentPadding: {
@@ -41,13 +51,10 @@ const styles = {
   },
 
   labelStyle: {
-    paddingLeft: 10,
+    textAlign: 'center',
     paddingTop: 10,
   },
 
-  outerScreen: {
-
-  }
 }
 
 export default Home;

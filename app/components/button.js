@@ -61,9 +61,9 @@ class Button extends Component {
       borderStyle: 'solid',
       borderRadius: 10,
       backgroundColor: 'transparent',
-      paddingLeft: 40,
-      paddingRight: 40,
-      marginLeft: 6,
+      width: '25%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     }
   }
 
