@@ -131,16 +131,15 @@ class Location extends Component {
       } else {
         return "Clocked In"
       }
-    }
-    if (this.state.clockStatus) {
+    } else if (this.state.clockStatus) {
       return "Clocked In";
     } else {
       return "Clocked Out";
     }
   }
-
+  
   componentWillMount() {
-     this.timer = setInterval(()=> this._getCurrentLocation(), 10000);
+     this.timer = setInterval(()=> this._getCurrentLocation(), 5000);
   }
 
   render() {
