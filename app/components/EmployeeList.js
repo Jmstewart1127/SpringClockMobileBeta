@@ -12,7 +12,7 @@ class EmployeeList extends Component {
 
   componentWillMount() {
     let id = 2;
-    fetch('https://spring-clock.herokuapp.com/rest/employees/' + id)
+    fetch('https://spring-clock.herokuapp.com/rest/jobs/assigned/employee/' + id)
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});
@@ -30,7 +30,7 @@ class EmployeeList extends Component {
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
+          
         </View>
       );
     }
@@ -46,11 +46,11 @@ class EmployeeList extends Component {
             </Text>
 
             <Text style={ styles.listStyle } >
-              {"Business ID: " + rowData.bizId},
-              {"Week Time: " + rowData.weekTimeInHours},
+              {"Business ID: " + rowData.jobAddress},
+              {/* {"Week Time: " + rowData.weekTimeInHours},
               {"Pay Rate: " + rowData.payRate},
               {"Period Pay: " + rowData.totalPay},
-              {"Clock In Status: " + rowData.clocked}
+              {"Clock In Status: " + rowData.clocked} */}
             </Text>
           </Text>
         }

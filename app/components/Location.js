@@ -35,24 +35,28 @@ class Location extends Component {
 
   async _clockIn() {
     let id = await AsyncStorage.getItem('userId');
-    fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id)
-     .then((responseJson) => {
-       return responseJson;
-     })
-     .catch((error) => {
-       console.error(error);
-     });
+    if (this.state.latitude && this.state.longitude) {
+      fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id)
+      .then((responseJson) => {
+        return responseJson;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   async _clockOut() {
     let id = await AsyncStorage.getItem('userId');
-    fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
-     .then((responseJson) => {
-       return responseJson;
-     })
-     .catch((error) => {
-       console.error(error);
-     });
+    if (this.state.latitude && this.state.longitude) {
+      fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id)
+      .then((responseJson) => {
+        return responseJson;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   _checkTrue(arr, val) {
