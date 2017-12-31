@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import Toast from '../modules/Toast';
 
 
 class Button extends Component {
@@ -15,6 +16,7 @@ class Button extends Component {
     var userId = {};
     try {
       await AsyncStorage.setItem('userId', id);
+      Toast.show('ID Saved', 1000);
     } catch (error) {
       // Error saving data
     }

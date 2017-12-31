@@ -62,7 +62,8 @@ class AppHome extends Component {
       return (
         <View style={ styles.outerScreen }>
           <Text style={ styles.componentPadding }></Text>
-          <Jobs></Jobs>
+          <Jobs/>
+          <Text style={ styles.componentPadding }></Text>
           <EmployeeStatus></EmployeeStatus>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
@@ -80,9 +81,10 @@ class AppHome extends Component {
 
 const styles = {
   screenStyle: {
-    padding: 10,
-    flexDirection: 'row',
-    width: 1000,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   componentPadding: {
@@ -96,7 +98,6 @@ const styles = {
 
   changeId: {
     flexDirection: 'row',
-    marginTop: 160,
     justifyContent: 'center',
   },
 

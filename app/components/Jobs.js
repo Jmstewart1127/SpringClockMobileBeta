@@ -40,43 +40,80 @@ class Jobs extends Component {
         </View>
       );
     }
-
-    return (
-      <View>
-        <Text style={styles.userStyle} >
-          {"Today's Job Site"}
-        </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-            renderRow={(rowData) =>
-            <Text style={ styles.listStyle }>
-                <Text style={ styles.listStyle } >
-                {rowData.jobAddress}
-                {/* {"Week Time: " + rowData.weekTimeInHours},
-                {"Pay Rate: " + rowData.payRate},
-                {"Period Pay: " + rowData.totalPay},
-                {"Clock In Status: " + rowData.clocked} */}
-                </Text>
-            </Text>
-            }
-        />
-      </View>
-    );
+    
+    if (this.state.dataSource = []) {
+      return (
+        <View>
+          <Text></Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={ styles.listStyle }>
+          <Text style={ styles.userStyle } >
+            {"Today's Job Site"}
+          </Text>
+          <ListView
+            dataSource={this.state.dataSource}
+              renderRow={(rowData) =>
+              <Text style={ styles.textStyle }>
+                  <Text style={ styles.textStyle } >
+                  {rowData.jobAddress}
+                  {/* {"Week Time: " + rowData.weekTimeInHours},
+                  {"Pay Rate: " + rowData.payRate},
+                  {"Period Pay: " + rowData.totalPay},
+                  {"Clock In Status: " + rowData.clocked} */}
+                  </Text>
+              </Text>
+              }
+          />
+        </View>
+      );
+    }
   }
 }
 
 const styles = {
-  listStyle: {
-    textAlign: 'center',
-    padding: 10,
-  },
-
-  userStyle: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-  }
-
-}
+    listStyle: {
+        width: 400,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: 'transparent',
+        backgroundColor: '#5C77E6',
+        padding: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 0 },
+        shadowRadius: 0,
+        elevation: 15,
+      },
+    
+      userStyle: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        color: 'white',
+        textAlign: 'left',
+        borderColor: 'white',
+        borderBottomWidth: 1,
+        height: 50,
+      },
+    
+      textStyle: {
+        color: 'white',
+        marginTop: 10,
+        marginBottom: 10,
+      },
+    
+      buttonStyle: {
+        borderWidth: 1,
+        borderColor: 'blue',
+        borderStyle: 'solid',
+        borderRadius: 10,
+        backgroundColor: 'transparent',
+      }
+    }
 
 export default Jobs;

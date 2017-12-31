@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
-import EmployeeStatus from '../components/EmployeeStatus.js';
+import EmployeeStatus from '../components/EmployeeStatus';
+import Jobs from '../components/Jobs';
 
 class Location extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Location extends Component {
       addressLng: null,
       coordinateMatches: [],
       clockStatus: null,
+      clockable: false,
       error: null,
     };
   }
@@ -67,9 +69,9 @@ class Location extends Component {
 
   _clockInAndOut(arr) {
     if (this._checkTrue(arr, true)) {
-      this._clockIn();
       this.setState({
         clockStatus: true,
+        clockable: true,
       })
     } else {
       this._clockOut();
@@ -122,10 +124,27 @@ class Location extends Component {
         });
         this._getAddresses(this.props.bizId);
         this._clockInAndOut(this.state.coordinateMatches);
+        console.log("looking");
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+  }
+
+  _manualClockInOut() {
+    if (this.state.clockStatus) {
+      this._clockOut();
+      this.setState({
+        clockStatus: false,
+      });
+      console.log(this.state.clockStatus);
+    } else {
+      this._getCurrentLocation();
+      if (this.state.clockable) {
+        this._clockIn();
+      }
+      console.log(this.state.clockStatus);
+    }
   }
 
   _clockStatusText() {
@@ -135,16 +154,19 @@ class Location extends Component {
       } else {
         return "Clocked In"
       }
-    } else if (this.state.clockStatus) {
+    }
+    if (this.state.clockStatus) {
       return "Clocked In";
     } else {
       return "Clocked Out";
     }
   }
-  
-  componentWillMount() {
-     this.timer = setInterval(()=> this._getCurrentLocation(), 5000);
-  }
+
+  // componentWillMount() {
+  //   if (!this.state.manualClockInOut) {
+  //     this.timer = setInterval(()=> this._getCurrentLocation(), 5000);
+  //   }
+  // }
 
   render() {
     const { bizId } = this.props;
@@ -162,6 +184,11 @@ class Location extends Component {
           <Text style={ styles.textStyle }>{"Pay Rate: " + "$" + this.props.payRate}</Text>
           <Text style={ styles.textStyle }>{"Net Pay: " + "$" + this.props.totalPay}</Text>
           <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
+          <TouchableOpacity
+            onPress={() => this._manualClockInOut()}
+          >
+            <Text>Clock In/Out</Text>
+          </TouchableOpacity>
         </View>
       );
     }

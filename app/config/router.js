@@ -1,8 +1,6 @@
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 
-//import  Icon from 'react-navigation';
-
 import AppHome from '../screens/AppHome.js';
 import Home from '../screens/Home.js';
 
@@ -26,13 +24,13 @@ export const Tabs = TabNavigator({
     screen: FeedStack,
     navigationOptions: {
       tabBarLabel: 'Home',
+      header: { visible: false }
     },
   },
   Home: {
     screen: Home,
     navigationOptions: {
       tabBarLabel: 'My ID#'
-
     },
   },
 });
