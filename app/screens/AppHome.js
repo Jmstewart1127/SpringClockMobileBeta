@@ -64,7 +64,7 @@ class AppHome extends Component {
           <Text style={ styles.componentPadding }></Text>
           <Jobs/>
           <Text style={ styles.componentPadding }></Text>
-          <EmployeeStatus></EmployeeStatus>
+          <EmployeeStatus/>
           <Text style={ styles.componentPadding }></Text>
           <Text style={ styles.componentPadding }></Text>
           <TouchableOpacity
@@ -80,11 +80,11 @@ class AppHome extends Component {
 }
 
 const styles = {
-  screenStyle: {
+  outerScreen: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
   },
 
   componentPadding: {

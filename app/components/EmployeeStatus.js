@@ -69,7 +69,7 @@ class EmployeeStatus extends Component {
     }
 
     return (
-      <View>
+      <View style={ styles.viewStyle }>
         <Location
           bizId = { bizId }
           user = { this.state.user }
@@ -89,6 +89,10 @@ class EmployeeStatus extends Component {
 }
 
 const styles = {
+  viewStyle: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
 
   buttonStyle: {
     alignSelf: 'center',
@@ -105,7 +109,6 @@ const styles = {
   textStyle: {
     color: 'white',
     marginTop: 10,
-    marginBottom: 10,
   },
 
   iconStyle: {

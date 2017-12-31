@@ -185,9 +185,10 @@ class Location extends Component {
           <Text style={ styles.textStyle }>{"Net Pay: " + "$" + this.props.totalPay}</Text>
           <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
           <TouchableOpacity
+            style={ styles.buttonStyle }
             onPress={() => this._manualClockInOut()}
           >
-            <Text>Clock In/Out</Text>
+            <Text style={ styles.buttonText}>Clock In/Out</Text>
           </TouchableOpacity>
         </View>
       );
@@ -197,25 +198,21 @@ class Location extends Component {
 const styles = {
 
   listStyle: {
-    width: 400,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: 'transparent',
     backgroundColor: '#5C77E6',
     padding: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 0,
     elevation: 15,
+    height: 300,
   },
 
   userStyle: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 'auto',
-    marginBottom: 'auto',
     color: 'white',
     textAlign: 'left',
     borderColor: 'white',
@@ -229,12 +226,21 @@ const styles = {
     marginBottom: 10,
   },
 
+  buttonText: {
+    color: '#5C77E6',
+    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+
   buttonStyle: {
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: 'white',
     borderStyle: 'solid',
-    borderRadius: 10,
-    backgroundColor: 'transparent',
+    borderRadius: 4,
+    backgroundColor: 'white',
+    height: 50,
+    marginTop: 10,
   }
 }
 
