@@ -76,6 +76,7 @@ class EmployeeStatus extends Component {
           weekTimeInHours = { this.state.weekTimeInHours }
           payRate = { this.state.payRate }
           totalPay = { this.state.totalPay }
+          clockStatus = { this.state.clocked }
         ></Location>
         <TouchableOpacity style={ styles.buttonStyle }
            onPress={() => this._getUserData()}>

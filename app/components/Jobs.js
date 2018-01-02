@@ -17,7 +17,6 @@ class Jobs extends Component {
     fetch('https://spring-clock.herokuapp.com/rest/jobs/assigned/employee/' + id)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       var x = [];
       for (let i=0; i<responseJson.length; i++) {
         x.push(responseJson[i]);

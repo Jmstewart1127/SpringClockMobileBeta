@@ -152,7 +152,7 @@ class Location extends Component {
       if (this.props.clockStatus) {
         return "Clocked In"
       } else {
-        return "Clocked In"
+        return "Clocked Out"
       }
     }
     if (this.state.clockStatus) {
