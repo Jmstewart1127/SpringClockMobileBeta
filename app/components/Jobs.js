@@ -1,5 +1,6 @@
+
 import React, { Component } from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
+import { ActivityIndicator, RefreshControl, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Jobs extends Component {
@@ -8,13 +9,14 @@ class Jobs extends Component {
 
     this.state = {
       isLoading: true,
+      refreshing: false,
       jobs: [],
     };
   }
 
   async _getJobs() {
     let id = await AsyncStorage.getItem('userId');
-    fetch('https://spring-clock.herokuapp.com/rest/jobs/assigned/employee/' + id)
+    fetch('https://spring-clock.herokuapp.com/rest/mobile/jobs/assigned/employee/' + id)
     .then((response) => response.json())
     .then((responseJson) => {
       var x = [];
@@ -30,6 +32,13 @@ class Jobs extends Component {
     })
     .catch((error) => {
       console.error(error);
+    });
+  }
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+    this._getJobs().then(() => {
+      this.setState({refreshing: false});
     });
   }
 
@@ -51,15 +60,17 @@ class Jobs extends Component {
             {"Today's Job Site"}
           </Text>
           <ListView
+            refreshControl = {
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
             dataSource={ this.state.dataSource }
               renderRow={(rowData) =>
               <Text style={ styles.textStyle }>
                   <Text style={ styles.textStyle } >
-                  { rowData.jobAddress }
-                  {/* {"Week Time: " + rowData.weekTimeInHours},
-                  {"Pay Rate: " + rowData.payRate},
-                  {"Period Pay: " + rowData.totalPay},
-                  {"Clock In Status: " + rowData.clocked} */}
+                    { rowData.jobAddress }
                   </Text>
               </Text>
               }

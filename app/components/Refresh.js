@@ -17,12 +17,12 @@ class EmployeeStatus extends Component {
     }
   }
 
-  async _getUserData() {
+  async _getUserData(jobId) {
     let id = await AsyncStorage.getItem('userId');
     if (id === null) {
       return "Enter ID";
     } else {
-    fetch('https://spring-clock.herokuapp.com/rest/get/employee/' + id)
+    fetch('https://spring-clock.herokuapp.com/rest/mobile/get/employee/' + id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
