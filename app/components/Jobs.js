@@ -19,11 +19,11 @@ class Jobs extends Component {
     fetch('https://spring-clock.herokuapp.com/rest/mobile/jobs/assigned/employee/' + id)
     .then((response) => response.json())
     .then((responseJson) => {
-      var x = [];
+      const x = [];
       for (let i=0; i<responseJson.length; i++) {
         x.push(responseJson[i]);
       }
-      let ds = new ListView.DataSource({rowHasChanged: (r1, r2, r3, r4, r5, r6) => r1 !== r2});
+      let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         isLoading: false,
         dataSource: ds.cloneWithRows(responseJson),
