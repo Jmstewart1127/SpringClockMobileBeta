@@ -52,13 +52,8 @@ class AppHome extends Component {
     } else {
     const { navigate } = this.props.navigation;
       return (
-        <View style={ styles.outerScreen }>
-          <Text style={ styles.componentPadding }/>
-          <Jobs/>
-          <Text style={ styles.componentPadding }/>
+        <View>
           <EmployeeStatus/>
-          <Text style={ styles.componentPadding }/>
-          <Text style={ styles.componentPadding }/>
           <TouchableOpacity
             style={ styles.changeId }
             onPress={() => navigate('Home')}

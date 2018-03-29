@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Card, ListItem, Button } from 'react-native-elements'
+import { ActivityIndicator, ListView, Text, View, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Avatar, Card, ListItem, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Jobs from '../components/Jobs';
 import Location from '../components/Location';
+import Jobs from '../components/Jobs';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -37,8 +37,8 @@ class EmployeeStatus extends Component {
           totalPay: responseJson["0"].totalPay,
           clocked: responseJson["0"].clocked,
         });
-        this._refreshUserData();
       })
+      .then(() => this._refreshUserData())
       .catch((error) => {
         console.error(error);
       });
@@ -51,7 +51,6 @@ class EmployeeStatus extends Component {
       .then((responseJson) => {
         return responseJson;
       })
-      .then(() => { this._getJobs })
       .catch((error) => {
         console.error(error);
       });
@@ -62,7 +61,6 @@ class EmployeeStatus extends Component {
   }
 
   render() {
-    const myIcon = (<Icon name='refresh' size={33} color='#3457E6' />);
     const totalPay = Math.round(this.state.totalPay * 100) / 100;
     if (this.state.isLoading) {
       return (
@@ -72,10 +70,10 @@ class EmployeeStatus extends Component {
       );
     }
     return (
-      <View style={ styles.viewStyle }>
-        <Card
-          title='HELLO WORLD'
-          >
+      <Card
+        title={this.state.user}
+      >
+        <View style={ styles.viewStyle }>
           <Location
             user = { this.state.user }
             weekTimeInHours = { this.state.weekTimeInHours }
@@ -84,20 +82,13 @@ class EmployeeStatus extends Component {
             clockStatus = { this.state.clocked }
           />
           <Button
-            icon={{name: 'code'}}
-            backgroundColor='#03A9F4'
-            fontFamily='Lato'
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-            title='VIEW NOW'
+            icon={{name: 'refresh'}}
+            title={'Refresh Status'}
+            onPress={() => this._getUserData()}
+            containerStyle={{ marginTop: 20 }}
           />
-        </Card>
-        <TouchableOpacity style={ styles.buttonStyle }
-           onPress={() => this._getUserData()}>
-          <Text style={ styles.iconStyle }>
-            { myIcon }
-          </Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </Card>
     );
   }
 }

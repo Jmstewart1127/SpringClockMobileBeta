@@ -6,7 +6,6 @@ import Toast from '../modules/Toast';
 class Button extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       userId: null,
     };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Avatar, Card, List, ListItem, Button, Divider } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Location extends Component {
   constructor(props) {
@@ -39,7 +41,7 @@ class Location extends Component {
     let jobId = this.state.jobId;
     console.log("this.state.jobId: " + jobId);
     if (this.state.latitude && this.state.longitude) {
-      fetch('https://spring-clock.herokuapp.com/rest/clock/in/' + id + '/' + jobId)
+      fetch('https://spring-clock.herokuapp.com/rest/mobile/clock/in/' + id + '/' + jobId)
         .then((responseJson) => {
           return responseJson;
         })
@@ -54,7 +56,7 @@ class Location extends Component {
     let jobId = this.state.jobId;
     console.log(jobId);
     if (this.state.latitude && this.state.longitude) {
-      fetch('https://spring-clock.herokuapp.com/rest/clock/out/' + id + '/' + jobId)
+      fetch('https://spring-clock.herokuapp.com/rest/mobile/clock/out/' + id + '/' + jobId)
         .then((responseJson) => {
           return responseJson;
         })
@@ -159,7 +161,6 @@ class Location extends Component {
       if (this.state.clockable) {
         this._clockIn();
       }
-      console.log(this.state.clockStatus);
     }
   }
 
@@ -181,26 +182,33 @@ class Location extends Component {
   render() {
     const totalPay = Math.round(this.props.totalPay * 100) / 100;
     return (
-      <View style={ styles.listStyle }>
-        <Text style={ styles.userStyle }>
-          {this.props.user + " "}
-        </Text>
-        <Text style={ styles.textStyle }>{"Week Time: " + this.props.weekTimeInHours}</Text>
-        <Text style={ styles.textStyle }>{"Pay Rate: " + "$" + this.props.payRate}</Text>
-        <Text style={ styles.textStyle }>{"Net Pay: " + "$" + totalPay}</Text>
-        <Text style={ styles.textStyle }>{this._clockStatusText()}</Text>
-        <TouchableOpacity
-          style={ styles.buttonStyle }
+      <View>
+        <List containerStyle={{marginBottom: 20}}>
+
+          <ListItem
+            roundAvatar
+            title={this.props.weekTimeInHours}
+          />
+          <ListItem
+            leftIcon={{name: 'attach-money'}}
+            title={"$" + totalPay}
+          />
+          <ListItem
+            leftIcon={{name: 'access-alarm'}}
+            title={this._clockStatusText()}
+          />
+        </List>
+        <Button
+          icon={{name: 'access-alarm'}}
+          backgroundColor='#03A9F4'
+          fontFamily='Lato'
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          title='Clock In/Out'
           onPress={() => this._manualClockInOut()}
-        >
-          <Text style={ styles.buttonText}>Clock In/Out</Text>
-        </TouchableOpacity>
+        />
       </View>
     );
   }
-}
-
-const styles = {
 }
 
 export default Location;

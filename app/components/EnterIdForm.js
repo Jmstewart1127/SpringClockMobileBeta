@@ -3,16 +3,13 @@ import { Text, View  } from 'react-native';
 import Button from './Button';
 import MyTextInput from './TextInput';
 
-
-
-class Clock extends Component {
+class EnterIdForm extends Component {
   constructor(props) {
     super(props);
     this.state = { text: "Enter ID", };
   }
 
   render() {
-    let userId = this.state.text;
     return(
       <View style={ styles.screenStyle }>
         <MyTextInput
@@ -22,7 +19,7 @@ class Clock extends Component {
           style={ styles.buttonPadding }
         />
         <Button
-          id = { userId }
+          id = { this.state.text }
         />
         <Text
           style={ styles.componentPadding }
@@ -53,4 +50,4 @@ const styles = {
 
 }
 
-export default Clock;
+export default EnterIdForm;

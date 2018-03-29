@@ -1,6 +1,6 @@
-
 import React, { Component } from 'react';
 import { AsyncStorage, ListView, RefreshControl, Text, View } from 'react-native';
+import { Avatar, Card, ListItem, Button } from 'react-native-elements'
 
 class Jobs extends Component {
   constructor(props) {
@@ -54,27 +54,23 @@ class Jobs extends Component {
       );
     } else {
       return (
-        <View style={ styles.listStyle }>
-          <Text style={ styles.userStyle } >
-            {"Today's Job Site"}
-          </Text>
-          <ListView
-            refreshControl = {
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh.bind(this)}
-              />
+        <Card
+          title={'Job Sites'}
+        >
+          <View>
+            {
+              this.state.jobs.map((job, i) => {
+                return (
+                  <ListItem
+                    key={i}
+                    roundAvatar
+                    title={job.jobAddress}
+                  />
+                );
+              })
             }
-            dataSource={ this.state.dataSource }
-              renderRow={(rowData) =>
-              <Text style={ styles.textStyle }>
-                <Text style={ styles.textStyle } >
-                  { rowData.jobAddress }
-                </Text>
-              </Text>
-              }
-          />
-        </View>
+          </View>
+        </Card>
       );
     }
   }

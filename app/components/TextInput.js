@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput} from 'react-native';
+import React, { Component } from 'react';
+import { TextInput } from 'react-native';
 
 class MyTextInput extends Component {
   constructor(props) {
