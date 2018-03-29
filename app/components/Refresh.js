@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ListView,Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
+import { View, AsyncStorage, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Location from '../components/Location.js';
 
 class EmployeeStatus extends Component {
   constructor(props) {
@@ -46,8 +45,6 @@ class EmployeeStatus extends Component {
   }
 
   render() {
-    const myIcon = (<Icon name='refresh' size={33} color='#3457E6' />);
-    const { func } = this.props;
     return (
       <View>
         <TouchableOpacity
@@ -56,27 +53,6 @@ class EmployeeStatus extends Component {
       </View>
     );
   }
-}
-
-const styles = {
-
-  buttonStyle: {
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: 'blue',
-    borderStyle: 'solid',
-    borderRadius: 50,
-    backgroundColor: 'transparent',
-    width: 66,
-    height: 66,
-  },
-
-  iconStyle: {
-    textAlign: 'center',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-  }
-
 }
 
 export default EmployeeStatus;

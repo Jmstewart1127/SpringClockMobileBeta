@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _jsxFileName = '/React/SpringClockMobile/node_modules/@expo/vector-icons/vendor/react-native-vector-icons/lib/icon-button.js';
+var _jsxFileName = '/React/SpringClockMobile/node_modules/@expo/vector-icons/vendor/react-native-vector-icons/lib/icon-Button.js';
 exports.default = createIconButtonComponent;
 
 var _lodash = require('lodash');

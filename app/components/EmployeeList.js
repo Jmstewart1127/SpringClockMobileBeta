@@ -1,5 +1,5 @@
-import React, { Component }                        from 'react';
-import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator, ListView, Text, View } from 'react-native';
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -44,7 +44,6 @@ class EmployeeList extends Component {
             <Text style={ styles.userStyle } >
               {rowData.user + " "}
             </Text>
-
             <Text style={ styles.listStyle } >
               {"Business ID: " + rowData.bizId},
               {"Week Time: " + rowData.weekTimeInHours},

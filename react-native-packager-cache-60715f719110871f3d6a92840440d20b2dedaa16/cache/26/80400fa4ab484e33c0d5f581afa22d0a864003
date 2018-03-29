@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _jsxFileName = '/React/SpringClockMobile/app/components/Clock.js';
+var _jsxFileName = '/React/SpringClockMobile/app/components/EnterIdForm.js';
 
 var _react = require('react');
 

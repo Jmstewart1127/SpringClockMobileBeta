@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, ListView, Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Card, ListItem, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Jobs from '../components/Jobs';
 import Location from '../components/Location';
@@ -72,13 +73,24 @@ class EmployeeStatus extends Component {
     }
     return (
       <View style={ styles.viewStyle }>
-        <Location
-          user = { this.state.user }
-          weekTimeInHours = { this.state.weekTimeInHours }
-          payRate = { this.state.payRate }
-          totalPay = { totalPay }
-          clockStatus = { this.state.clocked }
-        ></Location>
+        <Card
+          title='HELLO WORLD'
+          >
+          <Location
+            user = { this.state.user }
+            weekTimeInHours = { this.state.weekTimeInHours }
+            payRate = { this.state.payRate }
+            totalPay = { totalPay }
+            clockStatus = { this.state.clocked }
+          />
+          <Button
+            icon={{name: 'code'}}
+            backgroundColor='#03A9F4'
+            fontFamily='Lato'
+            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+            title='VIEW NOW'
+          />
+        </Card>
         <TouchableOpacity style={ styles.buttonStyle }
            onPress={() => this._getUserData()}>
           <Text style={ styles.iconStyle }>

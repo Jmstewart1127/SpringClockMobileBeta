@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, AsyncStorage } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-
-import Button             from '../components/Button.js';
-import MyTextInput        from '../components/TextInput.js';
-import EmployeeList       from '../components/EmployeeList.js';
-import Clock              from '../components/Clock.js'
-import Location           from '../components/Location.js'
-import AddressLocation    from '../components/AddressLocation.js'
+import { Text, View } from 'react-native';
+import EnterIdForm from '../components/EnterIdForm'
 
 class Home extends Component {
   constructor(props) {
@@ -19,11 +12,10 @@ class Home extends Component {
   };
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={ styles.screenStyle }>
         <Text style={ styles.labelStyle }>Enter Employee ID</Text>
-        <Clock></Clock>
+        <EnterIdForm/>
       </View>
     );
   }

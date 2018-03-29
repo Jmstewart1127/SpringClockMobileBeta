@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
-import EmployeeStatus from '../components/EmployeeStatus';
-import Jobs from '../components/Jobs';
 
 class Location extends Component {
   constructor(props) {
@@ -203,52 +201,6 @@ class Location extends Component {
 }
 
 const styles = {
-
-  listStyle: {
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'transparent',
-    backgroundColor: '#5C77E6',
-    padding: 10,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 0,
-    elevation: 15,
-    height: 300,
-  },
-
-  userStyle: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'left',
-    borderColor: 'white',
-    borderBottomWidth: 1,
-    height: 50,
-  },
-
-  textStyle: {
-    color: 'white',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-
-  buttonText: {
-    color: '#5C77E6',
-    textAlign: 'center',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-  },
-
-  buttonStyle: {
-    borderWidth: 1,
-    borderColor: 'white',
-    borderStyle: 'solid',
-    borderRadius: 4,
-    backgroundColor: 'white',
-    height: 50,
-    marginTop: 10,
-  }
 }
 
 export default Location;

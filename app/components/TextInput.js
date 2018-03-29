@@ -1,5 +1,5 @@
-import React, { Component, state } from 'react';
-import { View, TextInput, AppRegistry } from 'react-native';
+import React from 'react';
+import { TextInput} from 'react-native';
 
 class MyTextInput extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class MyTextInput extends Component {
     return (
       <TextInput
         style={styles.textInputStyle}
-        {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+        {...this.props}
         editable = { true }
         maxLength = { 40 }
       />

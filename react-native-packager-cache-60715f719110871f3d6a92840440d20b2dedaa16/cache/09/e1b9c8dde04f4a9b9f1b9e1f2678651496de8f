@@ -26,7 +26,7 @@ var _EmployeeList = require('../components/EmployeeList.js');
 
 var _EmployeeList2 = babelHelpers.interopRequireDefault(_EmployeeList);
 
-var _Clock = require('../components/Clock.js');
+var _Clock = require('../components/EnterIdForm.js');
 
 var _Clock2 = babelHelpers.interopRequireDefault(_Clock);
 

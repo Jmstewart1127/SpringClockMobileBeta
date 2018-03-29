@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
-import { ActivityIndicator, RefreshControl, ListView, Text, View, ScrollView, AsyncStorage } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { AsyncStorage, ListView, RefreshControl, Text, View } from 'react-native';
 
 class Jobs extends Component {
   constructor(props) {
@@ -50,7 +49,7 @@ class Jobs extends Component {
     if (this.state.isLoading || this.state.jobs.length < 1) {
       return (
         <View>
-          <Text></Text>
+          <Text/>
         </View>
       );
     } else {
@@ -69,9 +68,9 @@ class Jobs extends Component {
             dataSource={ this.state.dataSource }
               renderRow={(rowData) =>
               <Text style={ styles.textStyle }>
-                  <Text style={ styles.textStyle } >
-                    { rowData.jobAddress }
-                  </Text>
+                <Text style={ styles.textStyle } >
+                  { rowData.jobAddress }
+                </Text>
               </Text>
               }
           />
