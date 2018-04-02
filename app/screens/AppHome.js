@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, Text, View } from 'react-native';
 import EnterIdForm from '../components/EnterIdForm';
 import EmployeeStatus from '../components/EmployeeStatus';
 import Refresh from '../components/Refresh';
-import Jobs from '../components/Jobs';
 
 class AppHome extends Component {
   constructor(props) {
@@ -50,16 +49,9 @@ class AppHome extends Component {
         </View>
       );
     } else {
-    const { navigate } = this.props.navigation;
       return (
         <View>
           <EmployeeStatus/>
-          <TouchableOpacity
-            style={ styles.changeId }
-            onPress={() => navigate('Home')}
-          >
-            <Text>Change ID</Text>
-          </TouchableOpacity>
         </View>
       );
     }

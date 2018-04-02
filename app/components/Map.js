@@ -25,14 +25,13 @@ class Map extends Component {
         }
       ]
     }
-
     getDirections(data)
   }
 
   render() {
     return(
       <View>
-        <Button title={''} onPress={this.handleGetDirections} />
+        <Button title={this.props.address} onPress={this.handleGetDirections} />
       </View>
     );
   }

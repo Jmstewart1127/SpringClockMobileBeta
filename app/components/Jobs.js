@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ListView, RefreshControl, Text, TouchableOpacity, View } from 'react-native';
-import { Avatar, Card, ListItem, Button } from 'react-native-elements';
+import { AsyncStorage, ListView, Text, TouchableOpacity, View } from 'react-native';
+import { Card, Divider, Header, ListItem } from 'react-native-elements';
 import Map from './Map';
 
 class Jobs extends Component {
@@ -57,32 +57,8 @@ class Jobs extends Component {
       });
     })
     .then(() => console.log(this.state.jobs[1].jobAddress))
-    .then(() => this._getAddressCoordinates())
     .catch((error) => {
       console.error(error);
-    });
-  }
-
-  _getAddressCoordinates() {
-    const addressLat = [];
-    const addressLng = [];
-    for (let i=0; i<this.state.jobs.length; i++) {
-      fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.state.jobs[i].jobAddress.split(" ")
-        + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          let lat = responseJson.results["0"].geometry.location.lat;
-          let lng = responseJson.results["0"].geometry.location.lng;
-          addressLat.push(lat);
-          addressLng.push(lng);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-    this.setState({
-      addressLng: addressLat,
-      addressLat: addressLng,
     });
   }
 
@@ -94,12 +70,8 @@ class Jobs extends Component {
   }
 
   componentWillMount() {
-    this._getJobs();
     this._getCurrentLocation();
-    console.log(this.state.userLat);
-    console.log(this.state.userLng);
-    console.log(this.state.addressLat);
-    console.log(this.state.addressLng);
+    this._getJobs();
   }
 
   render() {
@@ -111,36 +83,34 @@ class Jobs extends Component {
       );
     } else {
       return (
-        <Card
-          title={'Job Sites'}
-        >
-          <View>
-            {
-              this.state.jobs.map((job, i) => {
-              const getAddressCoords = () => {
-                return this._getAddressCoordinates(job.jobAddress);
+        <View>
+          <Card
+            title={'Job Sites'}
+          >
+            <View>
+              {
+                this.state.jobs.map((job, i) => {
+                  return (
+                    <View>
+                      <Map
+                        userLat={this.state.userLat}
+                        userLng={this.state.userLng}
+                        addressLat={job.latitude}
+                        addressLng={job.longitude}
+                        address={job.jobAddress}
+                      >
+                        <ListItem
+                          key={i}
+                        />
+                      </Map>
+                      <Divider style={{ backgroundColor: 'blue' }}/>
+                    </View>
+                  );
+                })
               }
-                return (
-                  <TouchableOpacity
-                    onPress={() => getAddressCoords}>
-                    <Text>AAA</Text>
-                    <ListItem
-                      key={i}
-                      roundAvatar
-                      title={job.jobAddress}
-                    />
-                    <Map
-                      userLat={this.state.userLat}
-                      userLng={this.state.userLng}
-                      addressLat={this.state.addressLat}
-                      addressLng={this.state.addressLng}
-                    />
-                  </TouchableOpacity>
-                );
-              })
-            }
-          </View>
-        </Card>
+            </View>
+          </Card>
+        </View>
       );
     }
   }

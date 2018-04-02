@@ -11,6 +11,12 @@ export const FeedStack = StackNavigator({
       title: 'Status',
     },
   },
+  Jobs: {
+    screen: MapScreen,
+    navigationOptions: {
+      title: 'My Jobs'
+    },
+  },
   Home: {
     screen: Home,
     navigationOptions: {
@@ -22,21 +28,21 @@ export const FeedStack = StackNavigator({
 export const Tabs = TabNavigator({
   AppHome: {
     screen: FeedStack,
+    icon: 'user',
     navigationOptions: {
       tabBarLabel: 'Home',
-      header: { visible: false }
-    },
-  },
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      tabBarLabel: 'My ID#'
     },
   },
   Jobs: {
     screen: MapScreen,
     navigationOptions: {
-      tabBarLabel: 'My ID#'
+      tabBarLabel: 'My Jobs'
+    },
+  },
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      tabBarLabel: 'Change ID#'
     },
   },
 });
