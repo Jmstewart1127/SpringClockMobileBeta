@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ListView, RefreshControl, Text, View } from 'react-native';
-import { Avatar, Card, ListItem, Button } from 'react-native-elements'
+import { AsyncStorage, ListView, RefreshControl, Text, TouchableOpacity, View } from 'react-native';
+import { Avatar, Card, ListItem, Button } from 'react-native-elements';
+import Map from './Map';
 
 class Jobs extends Component {
   constructor(props) {
@@ -9,8 +10,34 @@ class Jobs extends Component {
     this.state = {
       isLoading: true,
       refreshing: false,
+      error: false,
+      userLat: '',
+      userLng: '',
+      addressLat: '',
+      addressLng: '',
       jobs: [],
+      jobAddresses: [{
+          address: [],
+          addressLat: [],
+          addressLng: [],
+        }],
     };
+  }
+
+  _getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          userLat: position.coords.latitude,
+          userLng: position.coords.longitude,
+          error: null,
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    console.log(this.state.userLat);
+    console.log(this.state.userLng);
   }
 
   async _getJobs() {
@@ -29,8 +56,33 @@ class Jobs extends Component {
         jobs: x,
       });
     })
+    .then(() => console.log(this.state.jobs[1].jobAddress))
+    .then(() => this._getAddressCoordinates())
     .catch((error) => {
       console.error(error);
+    });
+  }
+
+  _getAddressCoordinates() {
+    const addressLat = [];
+    const addressLng = [];
+    for (let i=0; i<this.state.jobs.length; i++) {
+      fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.state.jobs[i].jobAddress.split(" ")
+        + '&key=AIzaSyDlXAOpZfmgDvrk4G7MkD6NXxPf9yJeJo8')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          let lat = responseJson.results["0"].geometry.location.lat;
+          let lng = responseJson.results["0"].geometry.location.lng;
+          addressLat.push(lat);
+          addressLng.push(lng);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+    this.setState({
+      addressLng: addressLat,
+      addressLat: addressLng,
     });
   }
 
@@ -43,6 +95,11 @@ class Jobs extends Component {
 
   componentWillMount() {
     this._getJobs();
+    this._getCurrentLocation();
+    console.log(this.state.userLat);
+    console.log(this.state.userLng);
+    console.log(this.state.addressLat);
+    console.log(this.state.addressLng);
   }
 
   render() {
@@ -60,12 +117,25 @@ class Jobs extends Component {
           <View>
             {
               this.state.jobs.map((job, i) => {
+              const getAddressCoords = () => {
+                return this._getAddressCoordinates(job.jobAddress);
+              }
                 return (
-                  <ListItem
-                    key={i}
-                    roundAvatar
-                    title={job.jobAddress}
-                  />
+                  <TouchableOpacity
+                    onPress={() => getAddressCoords}>
+                    <Text>AAA</Text>
+                    <ListItem
+                      key={i}
+                      roundAvatar
+                      title={job.jobAddress}
+                    />
+                    <Map
+                      userLat={this.state.userLat}
+                      userLng={this.state.userLng}
+                      addressLat={this.state.addressLat}
+                      addressLng={this.state.addressLng}
+                    />
+                  </TouchableOpacity>
                 );
               })
             }

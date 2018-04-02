@@ -1,8 +1,8 @@
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-
 import AppHome from '../screens/AppHome.js';
 import Home from '../screens/Home.js';
+import MapScreen from '../screens/MapScreen';
 
 export const FeedStack = StackNavigator({
   AppHome: {
@@ -29,6 +29,12 @@ export const Tabs = TabNavigator({
   },
   Home: {
     screen: Home,
+    navigationOptions: {
+      tabBarLabel: 'My ID#'
+    },
+  },
+  Jobs: {
+    screen: MapScreen,
     navigationOptions: {
       tabBarLabel: 'My ID#'
     },

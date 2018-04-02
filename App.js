@@ -4,7 +4,7 @@ import { Root, Tabs, FeedStack } from './app/config/router';
 
 class App extends Component {
   render() {
-    return <FeedStack />;
+    return <Tabs/>;
   }
 }
 
