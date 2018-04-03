@@ -3,6 +3,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import AppHome from '../screens/AppHome.js';
 import Home from '../screens/Home.js';
 import MapScreen from '../screens/MapScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const FeedStack = StackNavigator({
   AppHome: {
@@ -28,21 +29,23 @@ export const FeedStack = StackNavigator({
 export const Tabs = TabNavigator({
   AppHome: {
     screen: FeedStack,
-    icon: 'user',
     navigationOptions: {
       tabBarLabel: 'Home',
+      tabBarIcon: () => <Icon name="home" size={22} style={{color:'gray'}} />,
     },
   },
   Jobs: {
     screen: MapScreen,
     navigationOptions: {
-      tabBarLabel: 'My Jobs'
+      tabBarLabel: 'My Jobs',
+      tabBarIcon: () => <Icon name="briefcase" size={22} style={{color:'gray'}} />,
     },
   },
   Home: {
     screen: Home,
     navigationOptions: {
-      tabBarLabel: 'Change ID#'
+      tabBarLabel: 'Change ID#',
+      tabBarIcon: () => <Icon name="gear" size={22} style={{color:'gray'}} />,
     },
   },
 });

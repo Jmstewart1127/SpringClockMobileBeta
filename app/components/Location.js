@@ -184,9 +184,8 @@ class Location extends Component {
     return (
       <View>
         <List containerStyle={{marginBottom: 20}}>
-
           <ListItem
-            roundAvatar
+            leftIcon={{name: 'alarm'}}
             title={this.props.weekTimeInHours}
           />
           <ListItem
@@ -194,7 +193,7 @@ class Location extends Component {
             title={"$" + totalPay}
           />
           <ListItem
-            leftIcon={{name: 'access-alarm'}}
+            leftIcon={{name: 'alarm-on'}}
             title={this._clockStatusText()}
           />
         </List>

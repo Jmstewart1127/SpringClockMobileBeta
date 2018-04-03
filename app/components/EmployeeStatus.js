@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, ListView, Text, View, AsyncStorage, TouchableOpacity } from 'react-native';
 import { Avatar, Card, ListItem, Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Location from '../components/Location';
-import Jobs from '../components/Jobs';
 
 class EmployeeStatus extends Component {
   constructor(props) {
