@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd842d9-9795-452b-b2d1-51257844436f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/components/EmployeeStatus.js" afterPath="$PROJECT_DIR$/app/components/EmployeeStatus.js" />
       <change beforePath="$PROJECT_DIR$/app/components/Location.js" afterPath="$PROJECT_DIR$/app/components/Location.js" />
-      <change beforePath="$PROJECT_DIR$/app/config/router.js" afterPath="$PROJECT_DIR$/app/config/router.js" />
       <change beforePath="$PROJECT_DIR$/ios/SpringClockMobile.xcodeproj/project.xcworkspace/xcuserdata/jacobstewart.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/ios/SpringClockMobile.xcodeproj/project.xcworkspace/xcuserdata/jacobstewart.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change beforePath="$PROJECT_DIR$/ios/SpringClockMobile.xcodeproj/xcuserdata/jacobstewart.xcuserdatad/xcschemes/Copy of SpringClockMobile.xcscheme" afterPath="$PROJECT_DIR$/ios/SpringClockMobile.xcodeproj/xcuserdata/jacobstewart.xcuserdatad/xcschemes/Copy of SpringClockMobile.xcscheme" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +21,8 @@
       <file leaf-file-name="Location.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/components/Location.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="190" column="19" lean-forward="true" selection-start-line="190" selection-start-column="19" selection-end-line="190" selection-end-column="19" />
+            <state relative-caret-position="320">
+              <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="28" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -46,8 +45,8 @@
       <file leaf-file-name="EmployeeStatus.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/EmployeeStatus.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-221">
-              <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+            <state relative-caret-position="825">
+              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -358,12 +357,12 @@
       <workItem from="1515718945908" duration="113000" />
       <workItem from="1522201387128" duration="2821000" />
       <workItem from="1522522920132" duration="8849000" />
-      <workItem from="1522639644653" duration="6614000" />
+      <workItem from="1522639644653" duration="16661000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39733000" />
+    <option name="totallyTimeSpent" value="49780000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="56" width="1273" height="1319" extended-state="0" />
@@ -769,7 +768,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -781,6 +780,14 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-google-maps-directions/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -796,26 +803,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/EmployeeStatus.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        <state relative-caret-position="825">
+          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-native-google-maps-directions/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/Location.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="190" column="19" lean-forward="true" selection-start-line="190" selection-start-column="19" selection-end-line="190" selection-end-column="19" />
+        <state relative-caret-position="320">
+          <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="28" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
