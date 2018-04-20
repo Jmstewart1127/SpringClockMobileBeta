@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>3</string>
 	<key>LSApplicationCategoryType</key>
-	<string/>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,7 +42,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato.ttf</string>
-		<string/>
 		<string>SF Pro Font License.rtf</string>
 		<string>FontAwesome.ttf</string>
 		<string>Foundation.ttf</string>
