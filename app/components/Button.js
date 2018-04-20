@@ -14,7 +14,6 @@ class Button extends Component {
   async _onPressButton(id) {
     try {
       await AsyncStorage.setItem('userId', id);
-      Toast.show('ID Saved', 1000);
     } catch (error) {
         console.error(error)
     }
